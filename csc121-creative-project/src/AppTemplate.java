@@ -19,7 +19,7 @@ public class AppTemplate extends PApplet {	// <----- 1. rename AppTemplate every
         w = w.update();
         w.draw(this);
     }
-    
+    //hello
     @Override
     public void mousePressed(MouseEvent mev) {
         w = w.mousePressed(mev);
