@@ -49,7 +49,7 @@ public class CaptureWorld implements IWorld{
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
 		c.background(255);
-		c.fill(0, , 0);
+		c.fill(0, 255, 0);
 		c.rect(this.flag.getX(), this.flag.getY(), 20, 30);
 		c.fill(0, 0, 255);
 		c.rect(this.player1.getX(), this.player1.getY(), 30, 50);
@@ -73,8 +73,17 @@ public class CaptureWorld implements IWorld{
 		else if (kev.getKeyCode() == PApplet.RIGHT) {
 			return new CaptureWorld(this.player1.move(new Posn(10, 0)), this.player2, this.flag);
 		}
-		else if (kev.getKeyCode() == 'w') {
+		else if (kev.getKey() == 'w') {
 			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -10)), this.flag);
+		}
+		else if (kev.getKey() == 'a') {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(-10, 0)), this.flag);
+		}
+		else if (kev.getKey() == 's') {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 10)), this.flag);
+		}
+		else if (kev.getKey() == 'd') {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(10, 0)), this.flag);
 		}
 		else {
 			return this;

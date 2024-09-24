@@ -34,11 +34,12 @@ class CaptureAppTest {
 	}
 	
 	@Test
-	void KeyPressed() {
+	void testKeyPressed() {
 		assertEquals(w1, w1.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', PApplet.X)));
 		assertEquals(new CaptureWorld(new Player(new Posn (50, 60), p1.score), w1.player2, w1.flag), 
 				w1.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', PApplet.DOWN)));
 		assertEquals(new CaptureWorld(new Player(new Posn (60, 50), p1.score), w1.player2, w1.flag), 
 				w1.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', PApplet.RIGHT)));
+		//assertEquals(new CaptureWorld(w2.player1, new Player(new Posn(60, 50), p1.score), w1.flag), w2.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', 'd')));
 	}
 }
