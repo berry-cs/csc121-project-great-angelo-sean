@@ -1,5 +1,7 @@
 import java.util.Objects;
 
+import processing.core.PApplet;
+
 /** Represents a player in the game */
 public class Player {
 	Posn pos;
@@ -9,6 +11,7 @@ public class Player {
 	boolean movingDown;
 	boolean movingRight;
 	boolean movingLeft;
+	
 	
 	Player(Posn pos, int score, boolean movingUp, boolean movingDown, boolean movingRight, boolean movingLeft) {
 		super();
@@ -64,5 +67,12 @@ public class Player {
 	/** Adds a given posn to a player */
 	public Player move(Posn pos) {
 		return new Player(this.pos.move(pos), this.score, this.movingDown, this.movingLeft, this.movingRight, this.movingUp);
+	}
+	
+	/** produces the image of the current game */
+	public PApplet draw(PApplet c) {
+		c.fill(0, 255, 0);
+		c.rect(this.getX(), this.getY(), 30, 50);
+		return c;
 	}
 }
