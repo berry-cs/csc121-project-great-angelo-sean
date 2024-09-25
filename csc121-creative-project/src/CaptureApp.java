@@ -4,14 +4,15 @@ import processing.event.*;
 /**
  * Provides the scaffolding to launch a Processing application
  */
-public class AppTemplate extends PApplet {	// <----- 1. rename AppTemplate everywhere in this file
+public class CaptureApp extends PApplet {	// <----- 1. rename AppTemplate everywhere in this file
     IWorld w;
     
     public void settings() {
-        this.size(400, 400);
+        this.size(1000, 500);
     }
     
     public void setup() {
+    	w = new CaptureWorld(new Player(new Posn(50, 50), 0, false, false, false, false), new Player(new Posn(300, 300), 1), new Flag(new Posn (100, 100)));
         //w = new WORLD(..........)   	<----- 2. create your initial world object
     }
     
@@ -76,6 +77,6 @@ public class AppTemplate extends PApplet {	// <----- 1. rename AppTemplate every
     }
 
     public static void main(String[] args) {
-        PApplet.runSketch(new String[] { AppTemplate.class.getName() }, new AppTemplate());
+        PApplet.runSketch(new String[] { CaptureApp.class.getName() }, new CaptureApp());
     }
 }
