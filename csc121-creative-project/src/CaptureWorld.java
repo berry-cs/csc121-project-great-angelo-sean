@@ -87,4 +87,9 @@ public class CaptureWorld implements IWorld{
 		}
 	}
 
+	
+	/** Updates the state of the game */ 
+	public IWorld update() {
+		return this;
+	}
 }
