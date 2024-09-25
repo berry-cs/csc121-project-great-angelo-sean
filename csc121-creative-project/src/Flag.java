@@ -1,5 +1,7 @@
 import java.util.Objects;
 
+import processing.core.PApplet;
+
 /** Represents a flag in the game */
 public class Flag {
 	Posn pos;
@@ -41,5 +43,10 @@ public class Flag {
 		return this.pos.getY();
 	}
 	
-	
+	/** produces the image of the current game */
+	public PApplet draw(PApplet c) {
+		c.fill(0, 0, 255);
+		c.rect(this.getX(), this.getY(), 20, 30);
+		return c;
+	}
 }

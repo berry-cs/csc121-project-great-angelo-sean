@@ -48,13 +48,10 @@ public class CaptureWorld implements IWorld{
 
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
-		c.background(255);
-		c.fill(0, 255, 0);
-		c.rect(this.flag.getX(), this.flag.getY(), 20, 30);
-		c.fill(0, 0, 255);
-		c.rect(this.player1.getX(), this.player1.getY(), 30, 50);
-		c.fill(255, 0, 0);
-		c.rect(this.player2.getX(), this.player2.getY(), 30, 50);
+		c.background(45);
+		this.player1.draw(c);
+		this.player2.draw(c);
+		this.flag.draw(c);
 		return c;
 	}
 	

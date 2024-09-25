@@ -1,5 +1,7 @@
 import java.util.Objects;
 
+import processing.core.PApplet;
+
 
 public class Posn {
     int x;
@@ -54,8 +56,9 @@ public class Posn {
 		return "Posn [x=" + x + ", y=" + y + "]";
 	}
     
+    /** Adds the given posn to the posn */
     public Posn move(Posn p) {
     	return new Posn(this.x + p.x, this.y + p.y);
     }
-
+    
 }
