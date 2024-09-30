@@ -56,7 +56,7 @@ public class CaptureWorld implements IWorld{
 	}
 	
 	
-	/** Returns a new world of the updated player position */
+	/** Returns a new world of the updated player location */
 	public IWorld keyPressed(KeyEvent kev) {
 		if (kev.getKeyCode() == PApplet.UP) {
 			return new CaptureWorld(this.player1.move(new Posn(0, -10)), this.player2, this.flag);
@@ -86,10 +86,40 @@ public class CaptureWorld implements IWorld{
 			return this;
 		}
 	}
+	/** Undoes the keyPressed method */
+	public IWorld keyReleased (KeyEvent kev) {
+		if (kev.getKeyCode() == PApplet.UP) {
+			return new CaptureWorld(this.player1.move(new Posn(0, 10)), this.player2, this.flag);
+		}
+		else if (kev.getKeyCode() == PApplet.DOWN ) {
+			return new CaptureWorld(this.player1.move(new Posn(0, -10)), this.player2, this.flag);
+		}
+		else if (kev.getKeyCode() == PApplet.LEFT) {
+			return new CaptureWorld(this.player1.move(new Posn(10, 0)), this.player2, this.flag);
+		}
+		else if (kev.getKeyCode() == PApplet.RIGHT) {
+			return new CaptureWorld(this.player1.move(new Posn(-10, 0)), this.player2, this.flag);
+		}
+		else if (kev.getKey() == 'w') {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 10)), this.flag);
+		}
+		else if (kev.getKey() == 'a') {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(10, 0)), this.flag);
+		}
+		else if (kev.getKey() == 's') {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -10)), this.flag);
+		}
+		else if (kev.getKey() == 'd') {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(-10, 0)), this.flag);
+		}
+		else {
+			return this;
+		}
+	}
 
 	
 	/** Updates the state of the game */ 
 	public IWorld update() {
-		return this;
+		return new CaptureWorld(this.player1.update(), this.player2.update(), this.flag);
 	}
 }

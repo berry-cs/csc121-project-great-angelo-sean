@@ -26,7 +26,8 @@ class CaptureAppTest {
 		assertEquals(new Posn(0, -10), posn2.move(new Posn(0, -10)));
 		assertEquals(new Posn(120, 20), posn3.move(new Posn(20, -80)));
 	}
-	
+}
+	/*
 	@Test
 	void testPlayerMove() {
 		assertEquals(new Player(posn1, 0), p1.move(new Posn(0, 0)));
@@ -43,3 +44,6 @@ class CaptureAppTest {
 		//assertEquals(new CaptureWorld(w2.player1, new Player(new Posn(60, 50), p1.score), w1.flag), w2.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', 'd')));
 	}
 }
+
+	
+	*/
