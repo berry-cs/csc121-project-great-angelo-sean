@@ -7,7 +7,7 @@ public class Player {
 	Posn pos; // location of player
 	Posn vel; // velocity of player
 	int score;
-	double speed = 4;
+	double speed = 10;
 	
 	// largest x/y values of the boundaries the player can go
 	int width = 30;
