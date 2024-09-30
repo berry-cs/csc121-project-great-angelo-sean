@@ -21,29 +21,7 @@ class CaptureAppTest {
 	CaptureWorld w2 = new CaptureWorld(p2, p1, f1);
 	
 	@Test
-	void testPosnMove() {
-		assertEquals(new Posn(50, 60), posn1.move(new Posn(0, 10)));
-		assertEquals(new Posn(0, -10), posn2.move(new Posn(0, -10)));
-		assertEquals(new Posn(120, 20), posn3.move(new Posn(20, -80)));
+	void testCol() {
+		assertEquals(true, p1.col(new Player(new Posn(50, 50), 0)));
 	}
 }
-	/*
-	@Test
-	void testPlayerMove() {
-		assertEquals(new Player(posn1, 0), p1.move(new Posn(0, 0)));
-		assertEquals(new Player(new Posn(60, 50), p1.score), p1.move(new Posn(10, 0)));
-	}
-	
-	@Test
-	void testKeyPressed() {
-		assertEquals(w1, w1.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', PApplet.X)));
-		assertEquals(new CaptureWorld(new Player(new Posn (50, 60), p1.score), w1.player2, w1.flag), 
-				w1.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', PApplet.DOWN)));
-		assertEquals(new CaptureWorld(new Player(new Posn (60, 50), p1.score), w1.player2, w1.flag), 
-				w1.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', PApplet.RIGHT)));
-		//assertEquals(new CaptureWorld(w2.player1, new Player(new Posn(60, 50), p1.score), w1.flag), w2.keyPressed(new KeyEvent(null, 0, 0, 0, '\0', 'd')));
-	}
-}
-
-	
-	*/

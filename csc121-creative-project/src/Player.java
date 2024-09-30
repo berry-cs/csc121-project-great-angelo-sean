@@ -9,6 +9,12 @@ public class Player {
 	int score;
 	double speed = 10;
 	
+	double top = this.getY() - this.height/2;
+	double bottom = this.getY() - this.height/2;
+	double right = this.getX() - this.width/2;
+	double left = this.getX() - this.width/2;
+	
+	
 	// largest x/y values of the boundaries the player can go
 	int width = 30;
 	int height = 50;
@@ -59,6 +65,14 @@ public class Player {
 	/** Stops the player by giving it a velocity of zero both directions */
 	public Player stop() {
 		return new Player(this.pos, new Posn(0, 0), this.score);
+	}
+	
+	/** Collision Statements */
+	public boolean col(Player that) {
+		return (this.left <= that.right &&
+				this.right >= that.left &&
+				this.top <= that.bottom &&
+				this.bottom >= that.top);
 	}
 	
 	@Override
