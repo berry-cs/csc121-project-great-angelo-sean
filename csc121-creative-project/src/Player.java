@@ -7,13 +7,13 @@ public class Player {
 	Posn pos; // location of player
 	Posn vel; // velocity of player
 	int score;
-	double speed = 5;
+	double speed = 4;
 	
 	// largest x/y values of the boundaries the player can go
 	int width = 30;
 	int height = 50;
 	Posn minBounds = new Posn(this.width/2, (this.height/2));
-	Posn maxBounds = new Posn(1000 - (this.width / 2), 600 - (this.height/2));
+	Posn maxBounds = new Posn(1200 - (this.width / 2), 700 - (this.height/2));
 	int type;
 	
 	Player(Posn pos, int score) {
@@ -55,10 +55,8 @@ public class Player {
 		return new Player(this.pos, this.vel.move(p).bound(this.speed), this.score);
 	}
 	
-	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/** checks if this player has collided with that player  */
-	public boolean col(Player that) {
+	public boolean collided(Player that) {
 	double p1Top = this.getY() - (this.height/2);
 	double p1Bottom = this.getY() + (this.height/2);
 	double p1Left = this.getX() - (this.width/2);
@@ -73,7 +71,7 @@ public class Player {
 				p1Top <= p2Bottom &&
 				p1Bottom >= p2Top);
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(height, maxBounds, minBounds, pos, score, type, vel, width);

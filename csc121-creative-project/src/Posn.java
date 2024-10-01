@@ -24,9 +24,9 @@ public class Posn {
     }
     
 
-	/** produce the difference between that and this posn */
+	/** produce the difference between this and that posn */
     public Posn diff(Posn that) {
-        return new Posn( that.x - this.x,  that.y - this.y );
+        return new Posn( this.x - that.x,  this.y - that.y );
     }
 
     @Override
