@@ -20,8 +20,26 @@ class CaptureAppTest {
 	CaptureWorld w1 = new CaptureWorld(p1, p2, f1);
 	CaptureWorld w2 = new CaptureWorld(p2, p1, f1);
 	
+
 	@Test
-	void testCol() {
+	void testCollisions() {
 		assertEquals(true, p1.col(new Player(new Posn(50, 50), 0)));
+		assertEquals(false, p2.col(p1));
+		assertEquals(true, p1.col(new Player(new Posn(25, 50), 0)));
+		assertEquals(true, p2.col(new Player(new Posn(20, 40), 0)));
 	}
+	
+	/*
+	@Test
+	void testPosnDiff() {
+		...
+	}
+	*/
+	
+	/*
+	@Test
+	void testPlayerUpdate() {
+	...
+	}
+	 */
 }

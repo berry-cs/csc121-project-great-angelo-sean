@@ -7,13 +7,7 @@ public class Player {
 	Posn pos; // location of player
 	Posn vel; // velocity of player
 	int score;
-	double speed = 10;
-	
-	double top = this.getY() - this.height/2;
-	double bottom = this.getY() - this.height/2;
-	double right = this.getX() - this.width/2;
-	double left = this.getX() - this.width/2;
-	
+	double speed = 5;
 	
 	// largest x/y values of the boundaries the player can go
 	int width = 30;
@@ -33,12 +27,11 @@ public class Player {
 		this.vel = vel;
 		this.score = score;
 	}
-
+	
 	/** gets the y of a player */
 	public double getY() {
 		return this.pos.getY();
 	}
-	
 	public double getX() {
 		return this.pos.getX();
 	}
@@ -62,19 +55,25 @@ public class Player {
 		return new Player(this.pos, this.vel.move(p).bound(this.speed), this.score);
 	}
 	
-	/** Stops the player by giving it a velocity of zero both directions */
-	public Player stop() {
-		return new Player(this.pos, new Posn(0, 0), this.score);
-	}
 	
-	/** Collision Statements */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/** checks if this player has collided with that player  */
 	public boolean col(Player that) {
-		return (this.left <= that.right &&
-				this.right >= that.left &&
-				this.top <= that.bottom &&
-				this.bottom >= that.top);
-	}
+	double p1Top = this.getY() - (this.height/2);
+	double p1Bottom = this.getY() + (this.height/2);
+	double p1Left = this.getX() - (this.width/2);
+	double p1Right = this.getX() + (this.width/2);
 	
+	double p2Top = that.getY() - (that.height/2);
+	double p2Bottom = that.getY() + (that.height/2);
+	double p2Left = that.getX() - (that.width/2);
+	double p2Right = that.getX() + (that.width/2);
+		return (p1Left <= p2Right &&
+				p1Right >= p2Left &&
+				p1Top <= p2Bottom &&
+				p1Bottom >= p2Top);
+	}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public int hashCode() {
 		return Objects.hash(height, maxBounds, minBounds, pos, score, type, vel, width);
