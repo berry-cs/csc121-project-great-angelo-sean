@@ -4,34 +4,29 @@ import processing.core.PApplet;
 
 
 public class Posn {
-    int x;
-    int y;
+    double x;
+    double y;
     
-    public Posn(int x, int y) {
+    public Posn(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
     
     /** returns the x of a posn*/
-    public int getX() {
+    public double getX() {
         return x;
     }
 
     /** returns the y of a posn*/
-    public int getY() {
+    public double getY() {
         return y;
     }
     
-    
-    /** produces the distance between this and that */
-    public double distanceTo(Posn that) {
-        return Math.sqrt( Math.pow(this.x - that.x, 2) + Math.pow(this.y - that.y, 2) );
-    }
 
-	/** produce the difference between that and this posn */
+	/** produce the difference between this and that posn */
     public Posn diff(Posn that) {
-        return new Posn( that.x - this.x,  that.y - this.y );
+        return new Posn( this.x - that.x,  this.y - that.y );
     }
 
     @Override
@@ -61,4 +56,17 @@ public class Posn {
     	return new Posn(this.x + p.x, this.y + p.y);
     }
     
+    /** returns a posn where the x and y values are bounded by the given min and max */
+    public Posn bound(Posn min, Posn max) {
+    	return new Posn( Math.max(min.x, Math.min(max.x, this.x)),
+			     Math.max(min.y, Math.min(max.y, this.y)) );
+    }
+    
+    /** produces a posn where the magnitude of the x and y are limited to the given bound */
+    public Posn bound(double mag) {
+    	int signX = (this.x < 0)  ?  -1  : +1; 
+    	int signY = (this.y < 0)  ?  -1  : +1; 
+    	return new Posn(signX * Math.min(Math.abs(mag), Math.abs(this.x)),
+    					signY * Math.min(Math.abs(mag), Math.abs(this.y)));
+    }
 }

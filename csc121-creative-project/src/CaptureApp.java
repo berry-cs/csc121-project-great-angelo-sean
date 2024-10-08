@@ -8,11 +8,11 @@ public class CaptureApp extends PApplet {	// <----- 1. rename AppTemplate everyw
     IWorld w;
     
     public void settings() {
-        this.size(1000, 500);
+        this.size(1200, 700);
     }
     
     public void setup() {
-    	w = new CaptureWorld(new Player(new Posn(50, 50), 0, false, false, false, false), new Player(new Posn(300, 300), 1), new Flag(new Posn (100, 400)));
+    	w = new CaptureWorld(new Player(new Posn(1100, 300), 0), new Player(new Posn(100, 300), 1), new Flag(new Posn (100, 600)), new Flag(new Posn(1100, 100 )));
         //w = new WORLD(..........)   	<----- 2. create your initial world object
     }
     
