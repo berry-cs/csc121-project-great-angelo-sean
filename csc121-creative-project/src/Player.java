@@ -16,6 +16,8 @@ public class Player {
 	Posn maxBounds = new Posn(1200 - (this.width / 2), 700 - (this.height/2));
 	int type;
 	
+	Posn origin = this.pos;
+	
 	Player(Posn pos, int score) {
 		this.pos = pos;
 		this.vel = new Posn(0, 0);
@@ -37,7 +39,7 @@ public class Player {
 	}
 	
 	
-	/** produces the image of the current game */
+	/** produces the image of the current player */
 	public PApplet draw(PApplet c) {
 		c.fill(0, 255, 0);
 		c.rectMode(c.CENTER);

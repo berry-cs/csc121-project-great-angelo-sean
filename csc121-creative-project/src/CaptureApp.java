@@ -1,5 +1,6 @@
 import processing.core.*;
 import processing.event.*;
+import java.awt.Color;
 
 /**
  * Provides the scaffolding to launch a Processing application
@@ -12,7 +13,12 @@ public class CaptureApp extends PApplet {	// <----- 1. rename AppTemplate everyw
     }
     
     public void setup() {
-    	w = new CaptureWorld(new Player(new Posn(1100, 300), 0), new Player(new Posn(100, 300), 1), new Flag(new Posn (100, 600)), new Flag(new Posn(1100, 100 )));
+    	w = new CaptureWorld(new Player(new Posn(1100, 300), 0), 
+    			new Player(new Posn(100, 300), 1), 
+    			new Flag(new Posn (100, 600)), 
+    			new Flag(new Posn(1100, 100 )),
+    			new Base(new Posn(100, 600), new Color(255,0,0)),
+    			new Base(new Posn(1100, 100), new Color(0,0,255)));
         //w = new WORLD(..........)   	<----- 2. create your initial world object
     }
     

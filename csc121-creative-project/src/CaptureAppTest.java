@@ -1,5 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.Color;
+
 import org.junit.jupiter.api.Test;
 
 /*
@@ -19,8 +21,12 @@ class CaptureAppTest {
 	Flag f1 = new Flag(posn3);
 	Flag f2 = new Flag(posn2);
 	
-	CaptureWorld w1 = new CaptureWorld(p1, p2, f1, f2);
-	CaptureWorld w2 = new CaptureWorld(p2, p1, f1, f2);
+	Base b1 = new Base(posn3, new Color(255,0,0));
+	Base b2 = new Base(posn2, new Color(0, 0, 255));
+	
+	
+	CaptureWorld w1 = new CaptureWorld(p1, p2, f1, f2, b1, b2);
+	CaptureWorld w2 = new CaptureWorld(p2, p1, f1, f2, b1, b2);
 	
 
 	@Test
