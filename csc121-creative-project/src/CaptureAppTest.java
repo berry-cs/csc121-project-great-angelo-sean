@@ -19,6 +19,7 @@ class CaptureAppTest {
 	
 	Player p1 = new Player(posn1, 0);
 	Player p2 = new Player(posn2, 1);
+	Player p3 = new Player(posn3, new Posn(0, -4), 0);
 
 	Flag f1 = new Flag(posn3);
 	Flag f2 = new Flag(posn2);
@@ -32,7 +33,7 @@ class CaptureAppTest {
 	
 
 	@Test
-	void testCollisions() {
+	void testPlayerCollide() {
 		assertEquals(true, p1.collided(new Player(new Posn(50, 50), 0)));
 		assertEquals(false, p2.collided(p1));
 		assertEquals(true, p1.collided(new Player(new Posn(25, 50), 0)));
@@ -67,7 +68,6 @@ class CaptureAppTest {
 		assertEquals(false, f1.collided(p2));
 	}
 	
-	////////////////////////////
 	@Test
 	void testKeyPressed() {
 		assertEquals(new CaptureWorld(
@@ -75,14 +75,14 @@ class CaptureAppTest {
 				w1.player2, w1.flag1, w1.flag2, w1.base1, w1.base2), 
 				w1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, 'w', 'w')));
 	}
-
-	//////////////////////////////
+	
 	@Test
 	void testPlayerUpdate() {
-		assertEquals(p1, p1.update());
+		assertEquals(new Player(new Posn(100, 96), p3.vel, 0), p3.update()); // adds the velocity of the player to the player's position
+		assertEquals(p1, p1.update()); //the velocity of the player is 0
 	}
 	
-	///////////////////////////////
+	///////////////////////////////////////////////
 	@Test
 	void testPlayerMove() {
 		assertEquals(new Player(p1.pos, p1.vel.move(posn2).bound(4), p1.score), p1.move(posn2));
@@ -93,5 +93,13 @@ class CaptureAppTest {
 		assertEquals(p1, p1.reset(p2, b1)); //no collision happens
 		assertEquals(new Player(new Posn(b1.getX(), b1.getY()), p1.vel, p1.score), 
 				p1.reset(new Player(new Posn(25, 50), 0), b1)); // a collision with a player happens and the player is reset to a given base
+	}
+	
+	// tests a base colliding with a flag
+	@Test
+	void testBaseCollide() {
+		assertEquals(true, b1.collided(f1));
+		assertEquals(false, b2.collided(f1));
+		assertEquals(true, b1.collided(new Flag(new Posn(100, 105))));
 	}
 }
