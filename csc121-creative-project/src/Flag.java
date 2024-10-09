@@ -24,7 +24,7 @@ public class Flag{
 
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
-		c.fill(0, 0, 255);
+		c.fill(255, 0, 255);
 		c.rect((int)this.getX(), (int)this.getY(), this.width, this.height);
 		return c;
 	}
@@ -66,5 +66,20 @@ public class Flag{
 			return false;
 		Flag other = (Flag) obj;
 		return height == other.height && Objects.equals(pos, other.pos) && width == other.width;
+	}
+	
+	/** updates the location of the flag if it has collided with a player */
+	public Flag update(Player that) {
+		if (this.collided(that)) {
+			return new Flag(new Posn(that.getX(), that.getY()));
+		}
+		else {
+			return this;
+		}
+	}
+	
+	/** Resets the position of the flag */
+	public Flag reset(Player that, Base b1) {
+		return new Flag(new Posn(b1.getX(), b1.getY()));
 	}
 }

@@ -14,9 +14,6 @@ public class Player {
 	int height = 50;
 	Posn minBounds = new Posn(this.width/2, (this.height/2));
 	Posn maxBounds = new Posn(1200 - (this.width / 2), 700 - (this.height/2));
-	int type;
-	
-	Posn origin = this.pos;
 	
 	Player(Posn pos, int score) {
 		this.pos = pos;
@@ -73,10 +70,19 @@ public class Player {
 				p1Top <= p2Bottom &&
 				p1Bottom >= p2Top);
 	}
+	/** Resets the position of the player when the player collides */
+	public Player reset(Player p2, Base b1) {
+		if (this.collided(p2)) {
+			return new Player(new Posn(b1.getX(), b1.getY()), this.vel, this.score);
+		}
+		else {
+			return this;
+		}
+	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(height, maxBounds, minBounds, pos, score, type, vel, width);
+		return Objects.hash(height, maxBounds, minBounds, pos, score, vel, width);
 	}
 
 	@Override
@@ -90,12 +96,12 @@ public class Player {
 		Player other = (Player) obj;
 		return height == other.height && Objects.equals(maxBounds, other.maxBounds)
 				&& Objects.equals(minBounds, other.minBounds) && Objects.equals(pos, other.pos) && score == other.score
-				&& type == other.type && Objects.equals(vel, other.vel) && width == other.width;
+				&& Objects.equals(vel, other.vel) && width == other.width;
 	}
 
 	@Override
 	public String toString() {
 		return "Player [pos=" + pos + ", vel=" + vel + ", score=" + score + ", width=" + width + ", height=" + height
-				+ ", minBounds=" + minBounds + ", maxBounds=" + maxBounds + ", type=" + type + "]";
+				+ ", minBounds=" + minBounds + ", maxBounds=" + maxBounds + ", type=" + "]";
 	}
 }

@@ -40,28 +40,28 @@ public class CaptureWorld implements IWorld{
 	/** Returns a new world of the updated player location */
 	public IWorld keyPressed(KeyEvent kev) {
 		if (kev.getKeyCode() == PApplet.UP) {
-			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.DOWN ) {
-			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.LEFT) {
-			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.RIGHT) {
-			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKey() == 'w') {
 			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -4)), this.flag1, this.flag2, this.base1, this.base2);
 		}
-		else if (kev.getKey() == 'a') {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(-4, 0)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKey() == 's') {
+		else if (kev.getKeyCode() == PApplet.DOWN ) {
 			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 4)), this.flag1, this.flag2, this.base1, this.base2);
 		}
-		else if (kev.getKey() == 'd') {
+		else if (kev.getKeyCode() == PApplet.LEFT) {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(-4, 0)), this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKeyCode() == PApplet.RIGHT) {
 			return new CaptureWorld(this.player1, this.player2.move(new Posn(4, 0)), this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 'w') {
+			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 'a') {
+			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 's') {
+			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 'd') {
+			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
 		}
 		else {
 			return this;
@@ -70,28 +70,28 @@ public class CaptureWorld implements IWorld{
 	/** Undoes the keyPressed method */
 	public IWorld keyReleased (KeyEvent kev) {
 		if (kev.getKeyCode() == PApplet.UP) {
-			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.DOWN ) {
-			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.LEFT) {
-			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.RIGHT) {
-			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKey() == 'w') {
 			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 4)), this.flag1, this.flag2, this.base1, this.base2);
 		}
-		else if (kev.getKey() == 'a') {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(4, 0)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKey() == 's') {
+		else if (kev.getKeyCode() == PApplet.DOWN ) {
 			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -4)), this.flag1, this.flag2, this.base1, this.base2);
 		}
-		else if (kev.getKey() == 'd') {
+		else if (kev.getKeyCode() == PApplet.LEFT) {
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(4, 0)), this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKeyCode() == PApplet.RIGHT) {
 			return new CaptureWorld(this.player1, this.player2.move(new Posn(-4, 0)), this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 'w') {
+			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 'a') {
+			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 's') {
+			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 'd') {
+			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
 		}
 		else {
 			return this;
@@ -101,7 +101,7 @@ public class CaptureWorld implements IWorld{
 	
 	/** Updates the state of the game */ 
 	public IWorld update() {
-		return new CaptureWorld(this.player1.update(), this.player2.update(), this.flag1, this.flag2, this.base1, this.base2);
+		return new CaptureWorld(this.player1.reset(player2, base1).update(), this.player2.reset(player1, base2).update(), this.flag1.update(player2), this.flag2.update(player1), this.base1, this.base2);
 	}
 	
 	@Override
@@ -116,8 +116,6 @@ public class CaptureWorld implements IWorld{
 	public int hashCode() {
 		return Objects.hash(flag1, flag2, player1, player2);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {

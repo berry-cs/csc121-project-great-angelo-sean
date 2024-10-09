@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.Test;
 
+import processing.event.KeyEvent;
+
 /*
 import processing.core.PApplet;
 import processing.event.KeyEvent;
@@ -65,17 +67,31 @@ class CaptureAppTest {
 		assertEquals(false, f1.collided(p2));
 	}
 	
-	/*
+	////////////////////////////
 	@Test
 	void testKeyPressed() {
-	...
+		assertEquals(new CaptureWorld(
+				new Player(new Posn(50, 50), new Posn(0, -4), 0),
+				w1.player2, w1.flag1, w1.flag2, w1.base1, w1.base2), 
+				w1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, 'w', 'w')));
 	}
-	*/
 
-	/*
+	//////////////////////////////
 	@Test
 	void testPlayerUpdate() {
-	...
+		assertEquals(p1, p1.update());
 	}
-	 */
+	
+	///////////////////////////////
+	@Test
+	void testPlayerMove() {
+		assertEquals(new Player(p1.pos, p1.vel.move(posn2).bound(4), p1.score), p1.move(posn2));
+	}
+	
+	@Test
+	void testPlayerReset() {
+		assertEquals(p1, p1.reset(p2, b1)); //no collision happens
+		assertEquals(new Player(new Posn(b1.getX(), b1.getY()), p1.vel, p1.score), 
+				p1.reset(new Player(new Posn(25, 50), 0), b1)); // a collision with a player happens and the player is reset to a given base
+	}
 }
