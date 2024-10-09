@@ -86,6 +86,13 @@ class CaptureAppTest {
 	@Test
 	void testPlayerMove() {
 		assertEquals(new Player(p1.pos, p1.vel.move(posn2).bound(4), p1.score), p1.move(posn2));
+		assertEquals( new Player(new Posn(50, 50),  new Posn(4, 0), 0),
+					  new Player(new Posn(50, 50), 0).move(new Posn(10, 0)) );
+		assertEquals( new Player(new Posn(50, 50),  new Posn(2, 0), 0),
+				  new Player(new Posn(50, 50), 0).move(new Posn(2, 0)) );
+		assertEquals( new Player(new Posn(50, 50),  new Posn(0, -4), 0),
+				  new Player(new Posn(50, 50), 0).move(new Posn(0, -7)) );
+
 	}
 	
 	@Test
