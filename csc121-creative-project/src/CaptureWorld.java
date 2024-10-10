@@ -121,10 +121,23 @@ public class CaptureWorld implements IWorld{
 					this.flag1.update(player2), this.flag2.update(player1), this.base1, this.base2);
 		}
 	}
+	
+	// updates the scores of each player
+	public CaptureWorld updateScores() {
+		if (this.base1.collided(flag2)) {
+			return new CaptureWorld(this.player1.addScore(), this.player2, this.flag1, this.flag2.reset(base2), this.base1, this.base2);
+		}
+		else if (this.base2.collided(flag1)) {
+			return new CaptureWorld(this.player1, this.player2.addScore(), this.flag1.reset(base2), this.flag2, this.base1, this.base2);
+		}
+		else {
+			return this;
+		}
+	}
 
 	/** Updates the state of the game */ 
 	public IWorld update() {
-		return this.updateCollisions();
+		return this.updateScores().updateCollisions();
 	}
 
 	@Override

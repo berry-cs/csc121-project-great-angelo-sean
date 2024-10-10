@@ -30,6 +30,7 @@ class CaptureAppTest {
 	
 	CaptureWorld w1 = new CaptureWorld(p1, p2, f1, f2, b1, b2);
 	CaptureWorld w2 = new CaptureWorld(p2, p1, f1, f2, b1, b2);
+	CaptureWorld w3 = new CaptureWorld(p1, p2, f1, f2, b2, b1);
 	
 
 	@Test
@@ -81,6 +82,7 @@ class CaptureAppTest {
 		assertEquals(new Player(new Posn(100, 96), p3.vel, 0, true), p3.update(f1)); // adds the velocity of the player to the player's position
 																					// and the player hasFlag. 
 		assertEquals(new Player(posn1, p1.vel, 0, p1.hasFlag), p1.update(f1)); //the velocity of the player is 0
+		assertEquals(new Player(posn2.move(p2.vel).bound(p2.minBounds, p2.maxBounds), p2.vel, p2.score, p2.hasFlag), p2.update(f1));
 	}
 	
 	@Test
@@ -115,8 +117,22 @@ class CaptureAppTest {
 	}
 	
 	@Test
-	void flagReset() {
+	void testFlagReset() {
 		assertEquals(f1, f1.reset(b1));
 		assertEquals(new Flag(new Posn(f1.getX(), f1.getY())), f1.reset(b1));
+	}
+	
+	@Test
+	void testUpdateCollisions() {
+		assertEquals(new CaptureWorld(w1.player1.update(w1.flag2), 
+				new Player(posn2.move(p2.vel).bound(p2.minBounds, p2.maxBounds), p2.vel, p2.score, p2.hasFlag), 
+				w1.flag1, w1.flag2, w1.base1, w1.base2), 
+				w1.updateCollisions());
+	}
+	
+	@Test
+	void testUpdateScores() {
+		assertEquals(w1, w1.updateScores()); // flags don't go to rival's base so nothing happens
+		assertEquals(w3, w3);////////////////////////////////////////////////////////////////////////////////
 	}
 }
