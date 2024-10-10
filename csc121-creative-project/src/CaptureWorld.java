@@ -27,6 +27,11 @@ public class CaptureWorld implements IWorld{
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
 		c.background(45);
+		c.textSize(64);
+		c.textAlign(c.CENTER);
+		c.fill(255);
+		c.text(this.player1.score, 565, 100);
+		c.text(this.player2.score, 635, 100);
 		this.base1.draw(c);
 		this.base2.draw(c);
 		this.player1.draw(c);
@@ -128,7 +133,7 @@ public class CaptureWorld implements IWorld{
 			return new CaptureWorld(this.player1.addScore(), this.player2, this.flag1, this.flag2.reset(base2), this.base1, this.base2);
 		}
 		else if (this.base2.collided(flag1)) {
-			return new CaptureWorld(this.player1, this.player2.addScore(), this.flag1.reset(base2), this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1, this.player2.addScore(), this.flag1.reset(base1), this.flag2, this.base1, this.base2);
 		}
 		else {
 			return this;

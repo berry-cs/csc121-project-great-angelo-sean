@@ -93,6 +93,11 @@ public class Player {
 	public Player addScore() {
 		return new Player(this.pos, this.vel, this.score + 1, this.hasFlag);
 	}
+	
+	/** returns the score of the player */
+	public int getScore() {
+		return this.score;
+	}
 
 	@Override
 	public int hashCode() {

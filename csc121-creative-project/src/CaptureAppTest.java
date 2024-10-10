@@ -135,4 +135,9 @@ class CaptureAppTest {
 		assertEquals(w1, w1.updateScores()); // flags don't go to rival's base so nothing happens
 		assertEquals(w3, w3);////////////////////////////////////////////////////////////////////////////////
 	}
+	
+	@Test
+	void testCaptureWorldUpdate() {
+		
+	}
 }
