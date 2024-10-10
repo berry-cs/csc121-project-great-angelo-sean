@@ -78,11 +78,11 @@ class CaptureAppTest {
 	
 	@Test
 	void testPlayerUpdate() {
-		assertEquals(new Player(new Posn(100, 96), p3.vel, 0), p3.update()); // adds the velocity of the player to the player's position
-		assertEquals(p1, p1.update()); //the velocity of the player is 0
+		assertEquals(new Player(new Posn(100, 96), p3.vel, 0, true), p3.update(f1)); // adds the velocity of the player to the player's position
+																					// and the player hasFlag. 
+		assertEquals(new Player(posn1, p1.vel, 0, p1.hasFlag), p1.update(f1)); //the velocity of the player is 0
 	}
 	
-	///////////////////////////////////////////////
 	@Test
 	void testPlayerMove() {
 		assertEquals(new Player(p1.pos, p1.vel.move(posn2).bound(4), p1.score), p1.move(posn2));
@@ -94,12 +94,10 @@ class CaptureAppTest {
 				  new Player(new Posn(50, 50), 0).move(new Posn(0, -7)) );
 
 	}
-	
 	@Test
 	void testPlayerReset() {
-		assertEquals(p1, p1.reset(p2, b1)); //no collision happens
 		assertEquals(new Player(new Posn(b1.getX(), b1.getY()), p1.vel, p1.score), 
-				p1.reset(new Player(new Posn(25, 50), 0), b1)); // a collision with a player happens and the player is reset to a given base
+				p1.reset(b1)); // the player is reset to a given base
 	}
 	
 	// tests a base colliding with a flag
@@ -108,5 +106,17 @@ class CaptureAppTest {
 		assertEquals(true, b1.collided(f1));
 		assertEquals(false, b2.collided(f1));
 		assertEquals(true, b1.collided(new Flag(new Posn(100, 105))));
+	}
+	
+	@Test
+	void testAddScore() {
+		assertEquals(new Player(p1.pos, 1), p1.addScore());
+		assertEquals(new Player(p2.pos, 2), p2.addScore());
+	}
+	
+	@Test
+	void flagReset() {
+		assertEquals(f1, f1.reset(b1));
+		assertEquals(new Flag(new Posn(f1.getX(), f1.getY())), f1.reset(b1));
 	}
 }

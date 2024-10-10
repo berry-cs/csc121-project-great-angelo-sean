@@ -45,23 +45,6 @@ public class Flag{
 				fTop <= pBottom &&
 				fBottom >= pTop);
 	}
-	
-	/** checks if this flag has collided with a base */
-	public boolean BaseCollided(Base that) {
-		double fTop = this.getY() - (this.height/2);
-		double fBottom = this.getY() + (this.height/2);
-		double fLeft = this.getX() - (this.width/2);
-		double fRight = this.getX() + (this.width/2);
-
-		double pTop = that.getY() - (that.height/2);
-		double pBottom = that.getY() + (that.height/2);
-		double pLeft = that.getX() - (that.width/2);
-		double pRight = that.getX() + (that.width/2);
-		return (fLeft <= pRight &&
-				fRight >= pLeft &&
-				fTop <= pBottom &&
-				fBottom >= pTop);
-	}
 
 	@Override
 	public String toString() {
@@ -95,8 +78,13 @@ public class Flag{
 		}
 	}
 	
+	/*
+	 * This can either be in the player class or the flag class. If a player collides with a flag,
+	 * then the flag's position is updated to follow the player and the player's boolean hasFlag is set to true. 
+	 */
+	
 	/** Resets the position of the flag to a given base */
-	public Flag reset(Player that, Base b1) {
+	public Flag reset(Base b1) {
 		return new Flag(new Posn(b1.getX(), b1.getY()));
 	}
 }

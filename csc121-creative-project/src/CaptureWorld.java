@@ -10,8 +10,8 @@ public class CaptureWorld implements IWorld{
 	Flag flag2;
 	Base base1;
 	Base base2;
-	
-	
+
+
 
 	CaptureWorld(Player player1, Player player2, Flag flag1, Flag flag2, Base base1, Base base2) {
 		super();
@@ -35,8 +35,8 @@ public class CaptureWorld implements IWorld{
 		this.flag2.draw(c);
 		return c;
 	}
-	
-	
+
+
 	/** Returns a new world of the updated player location */
 	public IWorld keyPressed(KeyEvent kev) {
 		if (kev.getKeyCode() == PApplet.UP) {
@@ -98,12 +98,35 @@ public class CaptureWorld implements IWorld{
 		}
 	}
 
-	
+	public IWorld updateCollisions() {
+		boolean playerCollision = this.player1.collided(this.player2);
+
+		// Handles player collisions
+		if (playerCollision) {
+			if (this.player1.hasFlag && !this.player2.hasFlag) {// if player1 has the flag, and player2 doesn't, player1 can get reset. 
+				return new CaptureWorld(this.player1.reset(base1).update(flag2), this.player2.update(flag1), 
+						this.flag1.update(player2), this.flag2.update(player1).reset(base2), this.base1, this.base2);
+			}
+			else if (this.player2.getX() <= 600|| !this.player1.hasFlag && this.player2.hasFlag) {				// if they collide in player1's territory, player2 and flag1 gets reset. 
+				return new CaptureWorld(this.player1.update(flag2), this.player2.reset(base2).update(flag1), 
+						this.flag1.update(player2).reset(base1), this.flag2.update(player1), this.base1, this.base2);
+			}
+			else {											// if they collide in player2's territory, player1 and flag2 gets reset.
+				return new CaptureWorld(this.player1.reset(base1).update(flag2), this.player2.update(flag1), 
+						this.flag1.update(player2), this.flag2.update(player1).reset(base2), this.base1, this.base2);
+			}
+		}
+		else {
+			return new CaptureWorld(this.player1.update(flag2), this.player2.update(flag1), 
+					this.flag1.update(player2), this.flag2.update(player1), this.base1, this.base2);
+		}
+	}
+
 	/** Updates the state of the game */ 
 	public IWorld update() {
-		return new CaptureWorld(this.player1.reset(player2, base1).update(), this.player2.reset(player1, base2).update(), this.flag1.update(player2), this.flag2.update(player1), this.base1, this.base2);
+		return this.updateCollisions();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "CaptureWorld [player1=" + player1 + ", player2=" + player2 + ", flag1=" + flag1 + ", flag2=" + flag2
