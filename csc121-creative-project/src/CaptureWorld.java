@@ -30,8 +30,6 @@ public class CaptureWorld implements IWorld{
 		c.textSize(64);
 		c.textAlign(c.CENTER);
 		c.fill(255);
-		c.text(this.player1.score, 565, 100);
-		c.text(this.player2.score, 635, 100);
 		this.base1.draw(c);
 		this.base2.draw(c);
 		this.player1.draw(c);
