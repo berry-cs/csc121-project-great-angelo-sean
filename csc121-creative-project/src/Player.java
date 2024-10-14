@@ -3,46 +3,34 @@ import java.util.Objects;
 import processing.core.PApplet;
 
 /** Represents a player in the game */
-public class Player {
-	Posn pos; // location of player
+public class Player extends AObject{
 	Posn vel; // velocity of player
 	int score;
 	double speed = 4;
 
-	// largest x/y values of the boundaries the player can go
-	int width = 30;
-	int height = 50;
 	boolean hasFlag;
 	Posn minBounds = new Posn(this.width/2, (this.height/2));
 	Posn maxBounds = new Posn(1200 - (this.width / 2), 700 - (this.height/2));
 
-	Player(Posn pos, int score) {
-		this.pos = pos;
+	public Player(Posn pos, int width, int height, int score) {
+		super(pos, width = 30, height = 50);
 		this.vel = new Posn(0, 0);
 		this.score = score;
 		this.hasFlag = false;
 	}
 
-	Player(Posn pos, Posn vel, int score) {
-		this.pos = pos;
+	public Player(Posn pos, int width, int height, Posn vel, int score) {
+		super(pos, width = 30, height = 50);
 		this.vel = vel;
 		this.score = score;
 		this.hasFlag = false;
 	}
 
-	Player(Posn pos, Posn vel, int score, boolean hasFlag) {
-		this.pos = pos;
+	public Player(Posn pos, int width, int height, Posn vel, int score, boolean hasFlag) {
+		super(pos, width = 30, height = 50);
 		this.vel = vel;
 		this.score = score;
 		this.hasFlag = hasFlag;
-	}
-
-	/** gets the y of a player */
-	public double getY() {
-		return this.pos.getY();
-	}
-	public double getX() {
-		return this.pos.getX();
 	}
 
 
@@ -60,12 +48,12 @@ public class Player {
 
 	/** updates the location of the player */
 	public Player update(Flag flagToCheck) {
-		return new Player(this.pos.move(this.vel).bound(minBounds, maxBounds), this.vel, this.score, flagToCheck.collided(this));
+		return new Player(this.pos.move(this.vel).bound(minBounds, maxBounds), this.width, this.height, this.vel, this.score, flagToCheck.collided(this));
 	}
 
 	/** Adds the given posn to the velocity of the player */
 	public Player move(Posn p) {
-		return new Player(this.pos, this.vel.move(p).bound(this.speed), this.score);
+		return new Player(this.pos, this.width, this.height, this.vel.move(p).bound(this.speed) ,this.score);
 	}
 
 	/** checks if this player has collided with that player  */
@@ -86,12 +74,12 @@ public class Player {
 	}
 	/** Resets the position of the player when the player collides */
 	public Player reset(Base b1) {
-		return new Player(new Posn(b1.getX(), b1.getY()), this.vel, this.score);
+		return new Player(new Posn(b1.getX(), b1.getY()), this.width, this.height, this.vel, this.score);
 	}
 	
 	/** Increases the score of the player by 1 */
 	public Player addScore() {
-		return new Player(this.pos, this.vel, this.score + 1, this.hasFlag);
+		return new Player(this.pos, this.width, this.height, this.vel, this.score + 1, this.hasFlag);
 	}
 
 	@Override

@@ -13,12 +13,12 @@ public class CaptureApp extends PApplet {	// <----- 1. rename AppTemplate everyw
     }
     
     public void setup() {
-    	w = new CaptureWorld(new Player(new Posn(100, 300), 0), 
-    			new Player(new Posn(1100, 300), 1), 
-    			new Flag(new Posn (100, 600)), 
-    			new Flag(new Posn(1100, 100 )),
-    			new Base(new Posn(100, 600), new Color(255,0,0)),
-    			new Base(new Posn(1100, 100), new Color(0,0,255)));
+    	w = new CaptureWorld(new Player(new Posn(100, 300), 30, 50, 0), 
+    			new Player(new Posn(1100, 300), 30, 50, 1), 
+    			new Flag(new Posn (100, 600), 20, 30), 
+    			new Flag(new Posn(1100, 100 ), 20, 30),
+    			new Base(new Posn(100, 600), 100, 100, new Color(255,0,0)),
+    			new Base(new Posn(1100, 100), 100, 100, new Color(0,0,255)));
         //w = new WORLD(..........)   	<----- 2. create your initial world object
     }
     

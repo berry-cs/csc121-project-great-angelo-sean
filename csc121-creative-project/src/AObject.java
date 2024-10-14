@@ -36,4 +36,5 @@ abstract class AObject implements IObject{
 				o1Top <= o2Bottom &&
 				o1Bottom >= o2Top);
 	}
+	
 }

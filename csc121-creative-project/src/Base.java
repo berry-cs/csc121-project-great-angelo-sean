@@ -4,18 +4,13 @@ import java.awt.Color;
 
 import processing.core.PApplet;
 
-public class Base {
-
-	Posn pos; // location of base
-	int width = 100;
-	int height = 100;
+public class Base extends AObject{
 	Color color;
 	
 	
 
-	Base(Posn pos, Color color) {
-		super();
-		this.pos = pos;
+	public Base(Posn pos, int width, int height, Color color) {
+		super(pos, width = 100, height = 100);
 		this.color = color;
 	}
 	
@@ -48,13 +43,6 @@ public class Base {
 	}
 
 
-	/** gets the y of a base */
-	public double getY() {
-		return this.pos.getY();
-	}
-	public double getX() {
-		return this.pos.getX();
-	}
 
 	/** produces the image of the current base */
 	public PApplet draw(PApplet c) {

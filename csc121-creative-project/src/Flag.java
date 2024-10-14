@@ -3,24 +3,12 @@ import java.util.Objects;
 import processing.core.PApplet;
 
 /** Represents a flag in the game */
-public class Flag{
-	Posn pos;
-	int width = 20;
-	int height = 30;
-
-	Flag(Posn pos) {
-		this.pos = pos;
+public class Flag extends AObject{
+	
+	public Flag(Posn pos, int width, int height) {
+		super(pos, width = 20, height = 30);
 	}
 
-	/** Gets the x of a flag's posn */
-	public double getX() {
-		return this.pos.getX();
-	}
-
-	/** Gets the y of a flag's posn */
-	public double getY() {
-		return this.pos.getY();
-	}
 
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
@@ -71,7 +59,7 @@ public class Flag{
 	/** updates the location of the flag if it has collided with a player */
 	public Flag update(Player that) {
 		if (this.collided(that)) {
-			return new Flag(new Posn(that.getX(), that.getY()));
+			return new Flag(new Posn(that.getX(), that.getY()), this.width, this.height);
 		}
 		else {
 			return this;
@@ -85,6 +73,6 @@ public class Flag{
 	
 	/** Resets the position of the flag to a given base */
 	public Flag reset(Base b1) {
-		return new Flag(new Posn(b1.getX(), b1.getY()));
+		return new Flag(new Posn(b1.getX(), b1.getY()), this.width, this.height);
 	}
 }
