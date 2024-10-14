@@ -56,22 +56,6 @@ public class Player extends AObject{
 		return new Player(this.pos, this.width, this.height, this.vel.move(p).bound(this.speed) ,this.score);
 	}
 
-	/** checks if this player has collided with that player  */
-	public boolean collided(Player that) {
-		double p1Top = this.getY() - (this.height/2);
-		double p1Bottom = this.getY() + (this.height/2);
-		double p1Left = this.getX() - (this.width/2);
-		double p1Right = this.getX() + (this.width/2);
-
-		double p2Top = that.getY() - (that.height/2);
-		double p2Bottom = that.getY() + (that.height/2);
-		double p2Left = that.getX() - (that.width/2);
-		double p2Right = that.getX() + (that.width/2);
-		return (p1Left <= p2Right &&
-				p1Right >= p2Left &&
-				p1Top <= p2Bottom &&
-				p1Bottom >= p2Top);
-	}
 	/** Resets the position of the player when the player collides */
 	public Player reset(Base b1) {
 		return new Player(new Posn(b1.getX(), b1.getY()), this.width, this.height, this.vel, this.score);

@@ -51,22 +51,5 @@ public class Base extends AObject{
 		c.rect((int)this.getX(), (int)this.getY(), this.width, this.height);
 		return c;
 	}
-	
-	/** checks if this base has collided with a flag  */
-	public boolean collided(Flag that) {
-		double bTop = this.getY() - (this.height/2);
-		double bBottom = this.getY() + (this.height/2);
-		double bLeft = this.getX() - (this.width/2);
-		double bRight = this.getX() + (this.width/2);
-
-		double fTop = that.getY() - (that.height/2);
-		double fBottom = that.getY() + (that.height/2);
-		double fLeft = that.getX() - (that.width/2);
-		double fRight = that.getX() + (that.width/2);
-		return (bLeft <= fRight &&
-				bRight >= fLeft &&
-				bTop <= fBottom &&
-				bBottom >= fTop);
-	}
 
 }
