@@ -22,8 +22,6 @@ public class CaptureWorld implements IWorld{
 		this.base1 = base1;
 		this.base2 = base2;
 		
-		player1.setScore(0);
-		player2.setScore(0);
 	}
 	
 
@@ -44,7 +42,7 @@ public class CaptureWorld implements IWorld{
 		c.fill(255, 0, 0);
 		c.text("Player 1 Score: " + player1.getScore(), c.width / 3, 60);
 		c.fill(0, 0, 255);
-		c.text("Player 2 Score: " + player2.getScore(), (3 * c.width) / 5, 60);
+		c.text("Player 2 Score: " + (player2.getScore() - 1), (3 * c.width) / 5, 60);
 		
 		return c;
 	}
