@@ -21,13 +21,16 @@ public class CaptureWorld implements IWorld{
 		this.flag2 = flag2;
 		this.base1 = base1;
 		this.base2 = base2;
+		
+		player1.setScore(0);
+		player2.setScore(0);
 	}
-
+	
 
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
 		c.background(45);
-		c.textSize(64);
+		c.textSize(32);
 		c.textAlign(c.CENTER);
 		c.fill(255);
 		this.base1.draw(c);
@@ -36,8 +39,17 @@ public class CaptureWorld implements IWorld{
 		this.player2.draw(c);
 		this.flag1.draw(c);
 		this.flag2.draw(c);
+		
+		// Draw the scores of each player on the screen
+		c.fill(255, 0, 0);
+		c.text("Player 1 Score: " + player1.getScore(), c.width / 3, 60);
+		c.fill(0, 0, 255);
+		c.text("Player 2 Score: " + player2.getScore(), (3 * c.width) / 5, 60);
+		
 		return c;
 	}
+	
+	
 
 
 	/** Returns a new world of the updated player location */

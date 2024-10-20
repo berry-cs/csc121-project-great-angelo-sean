@@ -25,6 +25,16 @@ public class Player extends AObject{
 		this.score = score;
 		this.hasFlag = false;
 	}
+	
+	// method to set score
+	public void setScore(int score) {
+	 this.score = score;
+	}
+	
+	// method to gather score for scoreboard
+	public int getScore() {
+		return this.score;
+	}
 
 	public Player(Posn pos, int width, int height, Posn vel, int score, boolean hasFlag) {
 		super(pos, width = 30, height = 50);
