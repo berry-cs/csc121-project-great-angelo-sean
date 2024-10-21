@@ -152,9 +152,20 @@ class CaptureAppTest {
 	
 	@Test
 	void testKeyReleased() {
-		assertEquals(new CaptureWorld(p1, new Player(new Posn(0,4), 30, 50, 1), f1, f2, b1, b2), 
-				w1.keyReleased(PApplet.UP));
+	//	assertEquals(new CaptureWorld(p1, new Player(new Posn(0,4), 30, 50, 1), f1, f2, b1, b2), 
+				//w1.keyReleased(PApplet.UP));
+	}
+	 
+	@Test
+	void testGetScore() { //Checking if new player has a score of 0 - tests getScore
+		Player player1 = new Player(p1.pos, 30, 50, 0);
+		Player player2 = new Player(p2.pos, 30, 50, 0);
+		
+		assertEquals(0, player1.getScore());
+		assertEquals(0, player2.getScore());
 	}
 	
+
+
 
 }

@@ -30,13 +30,26 @@ public class Player extends AObject{
 	public int getScore() {
 		return this.score;
 	}
+	
+	/*/method just to test getScore's accuracy (not necessary, skip)
+	public int subtractScore(int points) {
+		if(points <= 0) {
+			return this.score;
+		} else if (this.score - points < 0) {
+			this.score = 0;
+		} else {
+			this.score -= points;
+		}
+		
+		return this.score;
+	}*/ 
 
 	public Player(Posn pos, int width, int height, Posn vel, int score, boolean hasFlag) {
 		super(pos, width = 30, height = 50);
 		this.vel = vel;
 		this.score = score;
 		this.hasFlag = hasFlag;
-	}
+	} 
 
 
 	/** produces the image of the current player */
