@@ -26,12 +26,6 @@ public class Player extends AObject{
 		this.hasFlag = false;
 	}
 	
-	
-	// method to set score
-	public void setScore(int score) {
-	 this.score = score;
-	}
-	
 	// method to gather score for scoreboard
 	public int getScore() {
 		return this.score;
