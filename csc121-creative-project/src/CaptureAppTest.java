@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.Test;
 
+import processing.core.PApplet;
 import processing.event.KeyEvent;
 
 /*
@@ -138,7 +139,10 @@ class CaptureAppTest {
 	
 	@Test
 	void testFlagUpdate() {
-		
+		assertEquals(new Flag(new Posn(p3.getX(), p3.getY()), f1.width, f1.height), f1.update(p3) );
+		assertEquals(new Flag(posn1, 20, 30), new Flag(new Posn(60, 50), 20, 30).update(p1));
+		assertEquals(f1, f1.update(p3));
+	
 	}
 	
 	@Test
@@ -148,7 +152,8 @@ class CaptureAppTest {
 	
 	@Test
 	void testKeyReleased() {
-		
+		assertEquals(new CaptureWorld(p1, new Player(new Posn(0,4), 30, 50, 1), f1, f2, b1, b2), 
+				w1.keyReleased(PApplet.UP));
 	}
 	
 
