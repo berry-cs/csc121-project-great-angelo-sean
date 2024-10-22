@@ -4,14 +4,13 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.Test;
 
-import processing.core.PApplet;
+//import processing.core.PApplet;
 import processing.event.KeyEvent;
 
-/*
-import processing.core.PApplet;
-import processing.event.KeyEvent;
-import org.junit.jupiter.api.Test;
-*/
+//import processing.core.PApplet;
+//import processing.event.KeyEvent;
+//import org.junit.jupiter.api.Test;
+
 class CaptureAppTest {
 
 	Posn posn1 = new Posn(50, 50);
@@ -134,7 +133,9 @@ class CaptureAppTest {
 	@Test
 	void testUpdateScores() {
 		assertEquals(w1, w1.updateScores()); // flags don't go to rival's base so nothing happens
-		assertEquals(w3, w3);
+		assertEquals(new CaptureWorld
+				(new Player(p1.pos, 30, 50, 1), p2, w3.flag1,
+						new Flag(new Posn(100, 100), 20, 30), b2, b1), w3.updateScores());
 	}
 	
 	@Test
@@ -147,25 +148,28 @@ class CaptureAppTest {
 	
 	@Test
 	void testCaptureWorldUpdate() {
+		assertEquals(new CaptureWorld(w1.player1.update(w1.flag2), 
+				new Player(posn2.move(p2.vel).bound(p2.minBounds, p2.maxBounds), 30, 50, p2.vel, p2.score, p2.hasFlag), 
+				w1.flag1, w1.flag2, w1.base1, w1.base2), 
+				w1.update());
 		
+		assertEquals(new CaptureWorld				// the score and the collisions are updated
+				(new Player(p1.pos, 30, 50, 1), new Player(new Posn(15, 25), 30, 50, 1), w3.flag1,
+						new Flag(new Posn(100, 100), 20, 30), b2, b1), w3.update());
 	}
 	
 	@Test
 	void testKeyReleased() {
-	//	assertEquals(new CaptureWorld(p1, new Player(new Posn(0,4), 30, 50, 1), f1, f2, b1, b2), 
-				//w1.keyReleased(PApplet.UP));
+		assertEquals(new CaptureWorld(
+				new Player(new Posn(50, 50), 30, 50, new Posn(0, 4), 0),
+				w1.player2, w1.flag1, w1.flag2, w1.base1, w1.base2), 
+				w1.keyReleased(new KeyEvent(null, 0, KeyEvent.RELEASE, 0, 'w', 'w')));
 	}
 	 
 	@Test
-	void testGetScore() { //Checking if new player has a score of 0 - tests getScore
-		Player player1 = new Player(p1.pos, 30, 50, 0);
-		Player player2 = new Player(p2.pos, 30, 50, 0);
-		
-		assertEquals(0, player1.getScore());
-		assertEquals(0, player2.getScore());
+	void testGetScore() { 			// gets the score of a player - tests getScore
+		assertEquals(0, p1.getScore());
+		assertEquals(1, p2.getScore());
 	}
-	
-
-
 
 }
