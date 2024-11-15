@@ -10,14 +10,17 @@ public class Base extends AObject{
 	Posn minBounds = new Posn(this.width/2, (this.height/2));
 	Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
 	
-	
+	public static int baseWidth = 100;
+	public static int baseHeight = 100;
 
 	public Base(Posn pos, int width, int height, Color color) {
 		super(pos, width = 100, height = 100);
 		this.color = color;
 	}
-	
-	
+	/** returns the color of a base */
+	public Color getColor() {
+		return this.color;
+	}
 	
 	@Override
 	public String toString() {
@@ -56,10 +59,10 @@ public class Base extends AObject{
 	}
 	
 	/** moves this base towards that posn */
-	public Base move(Posn p) {
+	public Base move(Posn p, Posn min, Posn max) {
 		
-		int BoundaryX = (int) Math.max(minBounds.x, Math.min(maxBounds.x, p.x));
-		int BoundaryY = (int) Math.max(minBounds.y, Math.min(maxBounds.y, p.y));
+		int BoundaryX = (int) Math.max(min.x, Math.min(max.x, p.x));
+		int BoundaryY = (int) Math.max(min.y, Math.min(max.y, p.y));
 		
 		return new Base(new Posn(BoundaryX, BoundaryY), this.width, this.height, this.color); 
 		//return new Base (this.pos.move(p), this.width, this.height, this.color);

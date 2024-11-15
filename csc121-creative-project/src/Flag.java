@@ -5,8 +5,11 @@ import processing.core.PApplet;
 /** Represents a flag in the game */
 public class Flag extends AObject{
 	
+	public static int flagHeight = 30;
+	public static int flagWidth = 20;
+	
 	public Flag(Posn pos, int width, int height) {
-		super(pos, width = 20, height = 30);
+		super(pos, width, height);
 	}
 
 

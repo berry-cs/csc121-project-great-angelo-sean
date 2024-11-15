@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.junit.jupiter.api.Test;
 
+import processing.core.PApplet;
 //import processing.core.PApplet;
 import processing.event.KeyEvent;
 
@@ -26,6 +27,9 @@ class CaptureAppTest {
 	
 	Base b1 = new Base(posn3, 100, 100, new Color(255,0,0));
 	Base b2 = new Base(posn2, 100, 100, new Color(0, 0, 255));
+	
+	SetupWorld s1 = new SetupWorld(b1, b2);
+	SetupWorld s2 = new SetupWorld(b2, b1);
 	
 	
 	CaptureWorld w1 = new CaptureWorld(p1, p2, f1, f2, b1, b2);
@@ -131,6 +135,12 @@ class CaptureAppTest {
 	}
 	
 	@Test
+	void testGetColor() {
+		assertEquals(new Color(255,0,0), b1.getColor());
+		assertEquals(new Color(0, 0, 255), b2.getColor());
+	}
+	
+	@Test
 	void testUpdateScores() {
 		assertEquals(w1, w1.updateScores()); // flags don't go to rival's base so nothing happens
 		assertEquals(new CaptureWorld
@@ -171,24 +181,31 @@ class CaptureAppTest {
 		assertEquals(0, p1.getScore());
 		assertEquals(1, p2.getScore());
 	}
-	
+
 	@Test
 	void testMoveBaseRestrictions() { 
 		// tests the new implementations in our move method for bases
-		
-		Base base = new Base(new Posn(200, 200), 100, 100, Color.RED);
-		
-		Base movedBase = base.move(new Posn(CaptureApp.gameWidth + 50, 200));
-		assertEquals(new Posn(CaptureApp.gameWidth - base.width / 2, 200), movedBase.pos);
-		
-		movedBase = base.move(new Posn(200, CaptureApp.gameWidth + 50));
-		assertEquals(new Posn(200, CaptureApp.gameHeight - base.width / 2), movedBase.pos);
+		assertEquals(new Base(new Posn (50, 50), 100, 100, b1.getColor()), b1.move(posn3, posn2, posn1));
 	}
-	
+
 	@Test
 	void testWithin() {
 		assertEquals(true, b1.within(posn3)); // posn3 is within b1
 		assertEquals(false, b1.within(new Posn(0, 0)));
+	}
+	/*
+	@Test
+	void testMouseDragged() {
+		
+	}
+	*/
+	
+	@Test
+	void testSetupKeyPressed() {
+		assertEquals(new CaptureWorld(new Player (b1.pos, 30, 50, new Posn(0, 0), 0),
+				new Player(b2.pos, 30, 50, new Posn(0, 0), 0), new Flag(b1.pos, 20, 30), new Flag(b2.pos, 20, 30), s1.base1, s1.base2)
+				, s1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.ENTER)));
+		assertEquals(s1, s1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.UP)));
 	}
 
 }

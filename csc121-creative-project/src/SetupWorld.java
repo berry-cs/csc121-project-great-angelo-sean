@@ -41,13 +41,15 @@ public class SetupWorld implements IWorld{
 		if (this.base1.within(p)) {		
 			Posn b1 = new Posn(x, y); // position of the first base
 			
-			Base newBase1 = this.base1.move(p); // keeps bases moved inside game window
+			Base newBase1 = this.base1.move(p, new Posn(Base.baseWidth/2, Base.baseHeight/2),
+							new Posn(CaptureApp.gameWidth/2 - Base.baseWidth/2, CaptureApp.gameHeight - Base.baseHeight/2)); // keeps bases moved inside game window
 			return new SetupWorld(newBase1, this.base2); 
 		} // new Base (new Posn(x, y), 100, 100, new Color(255, 0, 0))
 		else if (this.base2.within(p)) {
 			Posn b2 = new Posn(x, y); // position of the first base
 			
-			Base newBase2 = this.base2.move(p); // keeps bases moved inside game window
+			Base newBase2 = this.base2.move(p, new Posn(CaptureApp.gameWidth/2 + Base.baseWidth/2, Base.baseHeight/2),
+							new Posn(CaptureApp.gameWidth - Base.baseWidth/2, CaptureApp.gameHeight - Base.baseWidth/2)); // keeps bases moved inside game window
 			return new SetupWorld(this.base1, newBase2); 
 		} // new Base (new Posn(x, y), 100, 100, new Color(0, 0, 255))
 		else {return this;}
@@ -55,12 +57,12 @@ public class SetupWorld implements IWorld{
 	public IWorld keyPressed(KeyEvent kev) {
 		if(kev.getKeyCode() == PApplet.ENTER) {
 			return new CaptureWorld(
-					new Player (new Posn(this.base1.getX(), this.base1.getY()), 30, 50),
-					new Player(new Posn(this.base2.getX(), this.base2.getY()), 30, 50), 
-					new Flag(new Posn(this.base1.getX(), this.base1.getY()), 20, 30),
-					new Flag(new Posn(this.base2.getX(), this.base2.getY()), 20, 30),
-					new Base(new Posn(this.base1.getX(), this.base1.getY()), 100, 100, new Color(255, 0, 0)), 
-					new Base(new Posn(this.base2.getX(), this.base2.getY()), 100, 100, new Color(0, 0, 255))); 
+					new Player (new Posn(this.base1.getX(), this.base1.getY()), Player.playerWidth, Player.playerHeight),
+					new Player(new Posn(this.base2.getX(), this.base2.getY()), Player.playerWidth, Player.playerHeight), 
+					new Flag(new Posn(this.base1.getX(), this.base1.getY()), Flag.flagWidth, Flag.flagHeight),
+					new Flag(new Posn(this.base2.getX(), this.base2.getY()), Flag.flagWidth, Flag.flagHeight),
+					new Base(new Posn(this.base1.getX(), this.base1.getY()), Base.baseWidth, Base.baseHeight, this.base1.getColor()), 
+					new Base(new Posn(this.base2.getX(), this.base2.getY()), Base.baseWidth, Base.baseHeight, this.base2.getColor())); 
 			} else {return this;}
 	} 
 

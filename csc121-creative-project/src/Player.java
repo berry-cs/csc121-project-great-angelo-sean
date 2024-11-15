@@ -8,26 +8,29 @@ public class Player extends AObject{
 	int score;
 	double speed = 4;
 
+	public static int playerHeight = 50;
+	public static int playerWidth = 30;
+	
 	boolean hasFlag;
 	Posn minBounds = new Posn(this.width/2, (this.height/2));
 	Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
 
 	public Player(Posn pos, int width, int height, int score) {
-		super(pos, width = 30, height = 50);
+		super(pos, width, height);
 		this.vel = new Posn(0, 0);
 		this.score = score;
 		this.hasFlag = false;
 	}
 
 	public Player(Posn pos, int width, int height, Posn vel, int score) {
-		super(pos, width = 30, height = 50);
+		super(pos, width, height);
 		this.vel = vel;
 		this.score = score;
 		this.hasFlag = false;
 	}
 	
 	public Player(Posn pos, int width, int height) {
-		super(pos, width = 30, height = 50);
+		super(pos, width, height);
 		this.vel = new Posn(0, 0);
 		this.score = 0;
 		this.hasFlag = false;
@@ -37,19 +40,6 @@ public class Player extends AObject{
 	public int getScore() {
 		return this.score;
 	}
-	
-	/*/method just to test getScore's accuracy (not necessary, skip)
-	public int subtractScore(int points) {
-		if(points <= 0) {
-			return this.score;
-		} else if (this.score - points < 0) {
-			this.score = 0;
-		} else {
-			this.score -= points;
-		}
-		
-		return this.score;
-	}*/ 
 
 	public Player(Posn pos, int width, int height, Posn vel, int score, boolean hasFlag) {
 		super(pos, width = 30, height = 50);
