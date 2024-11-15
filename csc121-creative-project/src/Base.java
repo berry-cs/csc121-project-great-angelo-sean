@@ -52,5 +52,10 @@ public class Base extends AObject{
 		return c;
 	}
 	
+	/** moves this base towards that posn */
+	public Base move(Posn p) {
+		return new Base (this.pos.move(p), this.width, this.height, this.color);
+	}
+	
 
 }
