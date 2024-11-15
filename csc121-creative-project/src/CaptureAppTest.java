@@ -173,6 +173,19 @@ class CaptureAppTest {
 	}
 	
 	@Test
+	void testMoveBaseRestrictions() { 
+		// tests the new implementations in our move method for bases
+		
+		Base base = new Base(new Posn(200, 200), 100, 100, Color.RED);
+		
+		Base movedBase = base.move(new Posn(CaptureApp.gameWidth + 50, 200));
+		assertEquals(new Posn(CaptureApp.gameWidth - base.width / 2, 200), movedBase.pos);
+		
+		movedBase = base.move(new Posn(200, CaptureApp.gameWidth + 50));
+		assertEquals(new Posn(200, CaptureApp.gameHeight - base.width / 2), movedBase.pos);
+	}
+	
+	@Test
 	void testWithin() {
 		assertEquals(true, b1.within(posn3)); // posn3 is within b1
 		assertEquals(false, b1.within(new Posn(0, 0)));

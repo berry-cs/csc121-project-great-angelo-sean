@@ -21,25 +21,35 @@ public class SetupWorld implements IWorld{
 		c.fill(255);
 		this.base1.draw(c);
 		this.base2.draw(c);
+		
+		// draws starting game instructions
+		c.fill(255, 255, 0);
+		c.text("Press Enter to start game, after placing bases.", CaptureApp.gameWidth / 2 , 100);
+		
 		return c;
 	}
 
+	
+	
 	/* Handles the movement of the players positioning their bases
 	 * and returns a new CaptureWorld when the bases are set. */
 	public IWorld mouseDragged(MouseEvent mev) {
 		int x = mev.getX();
 		int y = mev.getY();
 		Posn p = new Posn(x, y);
+		
 		if (this.base1.within(p)) {		
 			Posn b1 = new Posn(x, y); // position of the first base
-
-			return new SetupWorld(new Base (new Posn(x, y), 100, 100, new Color(255, 0, 0)), this.base2); 
-		}
+			
+			Base newBase1 = this.base1.move(p); // keeps bases moved inside game window
+			return new SetupWorld(newBase1, this.base2); 
+		} // new Base (new Posn(x, y), 100, 100, new Color(255, 0, 0))
 		else if (this.base2.within(p)) {
 			Posn b2 = new Posn(x, y); // position of the first base
-
-			return new SetupWorld(this.base1, new Base (new Posn(x, y), 100, 100, new Color(0, 0, 255))); 
-		}
+			
+			Base newBase2 = this.base2.move(p); // keeps bases moved inside game window
+			return new SetupWorld(this.base1, newBase2); 
+		} // new Base (new Posn(x, y), 100, 100, new Color(0, 0, 255))
 		else {return this;}
 	}
 	public IWorld keyPressed(KeyEvent kev) {

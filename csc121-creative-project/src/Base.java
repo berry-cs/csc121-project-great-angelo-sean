@@ -7,6 +7,9 @@ import processing.core.PApplet;
 public class Base extends AObject{
 	Color color;
 	
+	Posn minBounds = new Posn(this.width/2, (this.height/2));
+	Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
+	
 	
 
 	public Base(Posn pos, int width, int height, Color color) {
@@ -54,8 +57,12 @@ public class Base extends AObject{
 	
 	/** moves this base towards that posn */
 	public Base move(Posn p) {
-		return new Base (this.pos.move(p), this.width, this.height, this.color);
+		
+		int BoundaryX = (int) Math.max(minBounds.x, Math.min(maxBounds.x, p.x));
+		int BoundaryY = (int) Math.max(minBounds.y, Math.min(maxBounds.y, p.y));
+		
+		return new Base(new Posn(BoundaryX, BoundaryY), this.width, this.height, this.color); 
+		//return new Base (this.pos.move(p), this.width, this.height, this.color);
 	}
 	
-
 }
