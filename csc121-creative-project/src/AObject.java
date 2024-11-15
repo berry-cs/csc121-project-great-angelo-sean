@@ -21,6 +21,8 @@ abstract class AObject implements IObject{
 		return this.pos.getX();
 	}
 
+	
+	/** checks if `this` AObject collided with `that` AObject*/
 	public boolean collided(AObject that) {
 		double o1Top = this.getY() - (this.height/2);
 		double o1Bottom = this.getY() + (this.height/2);
@@ -35,6 +37,17 @@ abstract class AObject implements IObject{
 				o1Right >= o2Left &&
 				o1Top <= o2Bottom &&
 				o1Bottom >= o2Top);
+	}
+	
+	/** checks if a given posn is within this AObject */
+	public boolean within(Posn that) {
+		double top = this.getY() - (this.height/2);
+		double bottom = this.getY() + (this.height/2);
+		double left = this.getX() - (this.width/2);
+		double right = this.getX() + (this.width/2);
+		
+		return (that.getY() >= top && that.getY() <= bottom
+				&& that.getX() <= right && that.getX() >= left);
 	}
 	
 }

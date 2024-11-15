@@ -51,5 +51,6 @@ public class Base extends AObject{
 		c.rect((int)this.getX(), (int)this.getY(), this.width, this.height);
 		return c;
 	}
+	
 
 }

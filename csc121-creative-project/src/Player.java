@@ -10,7 +10,7 @@ public class Player extends AObject{
 
 	boolean hasFlag;
 	Posn minBounds = new Posn(this.width/2, (this.height/2));
-	Posn maxBounds = new Posn(1200 - (this.width / 2), 700 - (this.height/2));
+	Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
 
 	public Player(Posn pos, int width, int height, int score) {
 		super(pos, width = 30, height = 50);
@@ -23,6 +23,13 @@ public class Player extends AObject{
 		super(pos, width = 30, height = 50);
 		this.vel = vel;
 		this.score = score;
+		this.hasFlag = false;
+	}
+	
+	public Player(Posn pos, int width, int height) {
+		super(pos, width = 30, height = 50);
+		this.vel = new Posn(0, 0);
+		this.score = 0;
 		this.hasFlag = false;
 	}
 	

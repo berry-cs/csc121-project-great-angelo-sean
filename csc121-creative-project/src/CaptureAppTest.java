@@ -171,5 +171,11 @@ class CaptureAppTest {
 		assertEquals(0, p1.getScore());
 		assertEquals(1, p2.getScore());
 	}
+	
+	@Test
+	void testWithin() {
+		assertEquals(true, b1.within(posn3)); // posn3 is within b1
+		assertEquals(false, b1.within(new Posn(0, 0)));
+	}
 
 }
