@@ -1,5 +1,6 @@
 import java.io.PrintWriter;
 import java.util.Objects;
+import java.util.Scanner;
 
 import processing.core.PApplet;
 
@@ -13,6 +14,11 @@ public class Flag extends AObject{
 		super(pos, width, height);
 	}
 
+	
+	/** Reads from a scanner and creates a Flag */
+	public Flag(Scanner sc) {
+		super(new Posn(sc.nextInt(), sc.nextInt()), flagHeight, flagWidth);
+	}
 
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
@@ -27,7 +33,7 @@ public class Flag extends AObject{
 	 * prints the state of this tile to the given output object
 	 */
 	public void writeToFile(PrintWriter pw) {
-		pw.println(this.pos.getX() + " " + this.pos.getY());
+		pw.println(Math.round(this.pos.getX()) + " " + Math.round(this.pos.getY()));
 	}
 	
 	@Override

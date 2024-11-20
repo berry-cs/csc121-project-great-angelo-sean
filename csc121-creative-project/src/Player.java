@@ -1,4 +1,5 @@
 import java.util.Objects;
+import java.util.Scanner;
 import java.io.*;
 import processing.core.PApplet;
 
@@ -20,6 +21,14 @@ public class Player extends AObject{
 		this.vel = new Posn(0, 0);
 		this.score = score;
 		this.hasFlag = false;
+	}
+	
+	/** Reads from a scanner and creates a Player */
+	public Player(Scanner sc) {
+		super(new Posn(sc.nextInt(), sc.nextInt()), playerHeight, playerWidth);
+		this.vel = new Posn(0, 0);
+		this.score = sc.nextInt();
+		this.hasFlag = sc.nextBoolean();
 	}
 
 	public Player(Posn pos, int width, int height, Posn vel, int score) {
@@ -52,8 +61,7 @@ public class Player extends AObject{
 	 * prints the state of this tile to the given output object
 	 */
 	public void writeToFile(PrintWriter pw) {
-		pw.println(this.pos.getX() + " " + this.pos.getY() + " " + this.vel.getX() + " " + this.vel.getY()
-				+ " " + this.score + " " + this.hasFlag);
+		pw.println(Math.round(this.pos.getX()) + " " + Math.round(this.pos.getY()) + " " + this.score + " " + this.hasFlag);
 	}
 	
 	

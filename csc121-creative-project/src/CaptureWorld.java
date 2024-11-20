@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.Objects;
+import java.util.Scanner;
+
 import processing.core.*;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -65,8 +67,19 @@ public class CaptureWorld implements IWorld{
 	}
 
 	/** loads the saved game */
-	public void loadTiles() {
-		
+	public CaptureWorld loadGame() {
+		try {
+			Scanner sc = new Scanner(new File("saved_game.txt"));
+			
+			while (sc.hasNextInt()) {
+				return new CaptureWorld(new Player(sc), new Player(sc), new Flag(sc), new Flag(sc), new Base(sc), new Base(sc));
+			}
+			
+			sc.close();
+		} catch (IOException exp) {
+			System.out.println("Problem loading game: " + exp.getMessage());
+		}
+		return this;
 	}
 	
 	
@@ -101,6 +114,9 @@ public class CaptureWorld implements IWorld{
 		else if (kev.getKey() == 'S') {
 			this.saveGame();
 			return this;
+		}
+		else if (kev.getKey() == 'l') {
+			return this.loadGame();
 		}
 		else {
 			return this;

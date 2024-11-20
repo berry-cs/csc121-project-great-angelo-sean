@@ -1,5 +1,5 @@
 import java.util.Objects;
-
+import java.util.Scanner;
 import java.awt.Color;
 import java.io.PrintWriter;
 
@@ -23,11 +23,17 @@ public class Base extends AObject{
 		return this.color;
 	}
 	
+	/** Reads from a scanner and creates a Base */
+	public Base(Scanner sc) {
+		super(new Posn(sc.nextInt(), sc.nextInt()), baseWidth, baseHeight);
+		this.color = Color.decode(sc.next());
+	}
+	
 	/**
 	 * prints the state of this tile to the given output object
 	 */
 	public void writeToFile(PrintWriter pw) {
-		pw.println(this.pos.getX() + " " + this.pos.getY() + " " + this.color.getRGB());
+		pw.println(Math.round(this.pos.getX()) + " " + Math.round(this.pos.getY()) + " " + this.color.getRGB());
 	}
 	
 	@Override
