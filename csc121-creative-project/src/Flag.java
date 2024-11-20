@@ -17,7 +17,7 @@ public class Flag extends AObject{
 	
 	/** Reads from a scanner and creates a Flag */
 	public Flag(Scanner sc) {
-		super(new Posn(sc.nextInt(), sc.nextInt()), flagHeight, flagWidth);
+		super(new Posn(sc.nextInt(), sc.nextInt()), flagWidth, flagHeight);
 	}
 
 	/** produces the image of the current game */

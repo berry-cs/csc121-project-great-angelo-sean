@@ -56,10 +56,10 @@ public class CaptureWorld implements IWorld{
 			PrintWriter pw = new PrintWriter(new File ("saved_game.txt"));
 			this.player1.writeToFile(pw);
 			this.player2.writeToFile(pw);
-			this.base1.writeToFile(pw);
-			this.base2.writeToFile(pw);
 			this.flag1.writeToFile(pw);
 			this.flag2.writeToFile(pw);
+			this.base1.writeToFile(pw);
+			this.base2.writeToFile(pw);
 			pw.close();
 		} catch (IOException exp) {
 			System.out.println("Problem saving the game: " + exp.getMessage());
