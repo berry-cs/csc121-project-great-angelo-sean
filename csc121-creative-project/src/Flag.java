@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 import java.util.Objects;
 
 import processing.core.PApplet;
@@ -21,6 +22,13 @@ public class Flag extends AObject{
 		return c;
 	}
 
+	
+	/**
+	 * prints the state of this tile to the given output object
+	 */
+	public void writeToFile(PrintWriter pw) {
+		pw.println(this.pos.getX() + " " + this.pos.getY());
+	}
 	
 	@Override
 	public String toString() {

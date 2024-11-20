@@ -54,8 +54,20 @@ public class SetupWorld implements IWorld{
 		} // new Base (new Posn(x, y), 100, 100, new Color(0, 0, 255))
 		else {return this;}
 	}
+	
+	
+	
 	public IWorld keyPressed(KeyEvent kev) {
-		if(kev.getKeyCode() == PApplet.ENTER) {
+		if (kev.getKey() == 's') {
+			// save layout to a file
+			return this;
+			
+		} else if (kev.getKey() == 'l') {
+			// load layout from a file
+			return this;
+			// read in two base information from a file
+			// return new SetupWorld( newbase1, newbase2 );
+		} else if(kev.getKeyCode() == PApplet.ENTER) {
 			return new CaptureWorld(
 					new Player (new Posn(this.base1.getX(), this.base1.getY()), Player.playerWidth, Player.playerHeight),
 					new Player(new Posn(this.base2.getX(), this.base2.getY()), Player.playerWidth, Player.playerHeight), 
@@ -63,9 +75,12 @@ public class SetupWorld implements IWorld{
 					new Flag(new Posn(this.base2.getX(), this.base2.getY()), Flag.flagWidth, Flag.flagHeight),
 					new Base(new Posn(this.base1.getX(), this.base1.getY()), Base.baseWidth, Base.baseHeight, this.base1.getColor()), 
 					new Base(new Posn(this.base2.getX(), this.base2.getY()), Base.baseWidth, Base.baseHeight, this.base2.getColor())); 
-			} else {return this;}
+		} 
+		else {
+			return this;
+		}
 	} 
-
+	
 
 	@Override
 	public int hashCode() {

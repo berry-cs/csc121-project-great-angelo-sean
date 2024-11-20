@@ -1,5 +1,5 @@
 import java.util.Objects;
-
+import java.io.*;
 import processing.core.PApplet;
 
 /** Represents a player in the game */
@@ -48,7 +48,15 @@ public class Player extends AObject{
 		this.hasFlag = hasFlag;
 	} 
 
-
+	/**
+	 * prints the state of this tile to the given output object
+	 */
+	public void writeToFile(PrintWriter pw) {
+		pw.println(this.pos.getX() + " " + this.pos.getY() + " " + this.vel.getX() + " " + this.vel.getY()
+				+ " " + this.score + " " + this.hasFlag);
+	}
+	
+	
 	/** produces the image of the current player */
 	public PApplet draw(PApplet c) {
 		if (hasFlag) {

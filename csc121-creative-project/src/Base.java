@@ -1,6 +1,7 @@
 import java.util.Objects;
 
 import java.awt.Color;
+import java.io.PrintWriter;
 
 import processing.core.PApplet;
 
@@ -20,6 +21,13 @@ public class Base extends AObject{
 	/** returns the color of a base */
 	public Color getColor() {
 		return this.color;
+	}
+	
+	/**
+	 * prints the state of this tile to the given output object
+	 */
+	public void writeToFile(PrintWriter pw) {
+		pw.println(this.pos.getX() + " " + this.pos.getY() + " " + this.color.getRGB());
 	}
 	
 	@Override

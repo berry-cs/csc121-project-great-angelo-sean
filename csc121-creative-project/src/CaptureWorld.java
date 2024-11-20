@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Objects;
 import processing.core.*;
 import processing.event.KeyEvent;
@@ -47,7 +48,26 @@ public class CaptureWorld implements IWorld{
 		return c;
 	}
 	
-	
+	/** saves the current state of the game */
+	public void saveGame() {
+		try {
+			PrintWriter pw = new PrintWriter(new File ("saved_game.txt"));
+			this.player1.writeToFile(pw);
+			this.player2.writeToFile(pw);
+			this.base1.writeToFile(pw);
+			this.base2.writeToFile(pw);
+			this.flag1.writeToFile(pw);
+			this.flag2.writeToFile(pw);
+			pw.close();
+		} catch (IOException exp) {
+			System.out.println("Problem saving the game: " + exp.getMessage());
+		}
+	}
+
+	/** loads the saved game */
+	public void loadTiles() {
+		
+	}
 	
 	
 
@@ -77,6 +97,10 @@ public class CaptureWorld implements IWorld{
 		}
 		else if (kev.getKey() == 'd') {
 			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		}
+		else if (kev.getKey() == 'S') {
+			this.saveGame();
+			return this;
 		}
 		else {
 			return this;
