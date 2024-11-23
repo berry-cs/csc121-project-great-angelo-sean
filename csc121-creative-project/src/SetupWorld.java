@@ -24,11 +24,38 @@ public class SetupWorld implements IWorld{
 		
 		// draws starting game instructions
 		c.fill(255, 255, 0);
-		c.text("Press Enter to start game, after placing bases.", CaptureApp.gameWidth / 2 , 100);
+		c.text("Place your bases", CaptureApp.gameWidth/2, 100);
+		c.text("Press Enter continue", CaptureApp.gameWidth / 2 , 200);
 		
 		return c;
 	}
 
+	/** prompts the user for a score */
+	public IWorld getScore() {
+		try {
+			String score = javax.swing.JOptionPane.showInputDialog("What is the max score?");
+			if (score == null) {
+				return this;
+			}
+			Integer maxScore = Integer.parseInt(score);
+			if (maxScore != null && maxScore > 0) {
+				return new CaptureWorld(
+						new Player (new Posn(this.base1.getX(), this.base1.getY()), Player.playerWidth, Player.playerHeight),
+						new Player(new Posn(this.base2.getX(), this.base2.getY()), Player.playerWidth, Player.playerHeight), 
+						new Flag(new Posn(this.base1.getX(), this.base1.getY()), Flag.flagWidth, Flag.flagHeight),
+						new Flag(new Posn(this.base2.getX(), this.base2.getY()), Flag.flagWidth, Flag.flagHeight),
+						new Base(new Posn(this.base1.getX(), this.base1.getY()), Base.baseWidth, Base.baseHeight, this.base1.getColor()), 
+						new Base(new Posn(this.base2.getX(), this.base2.getY()), Base.baseWidth, Base.baseHeight, this.base2.getColor()));
+			} else {
+				javax.swing.JOptionPane.showMessageDialog(null, "Max Score has to be greater than 0");
+				return this;
+			}
+		} catch (NumberFormatException e){
+			javax.swing.JOptionPane.showMessageDialog(null, "Invalid number");
+		}
+		return this;
+		
+	}
 	
 	
 	/* Handles the movement of the players positioning their bases
@@ -68,13 +95,7 @@ public class SetupWorld implements IWorld{
 			// read in two base information from a file
 			// return new SetupWorld( newbase1, newbase2 );
 		} else if(kev.getKeyCode() == PApplet.ENTER) {
-			return new CaptureWorld(
-					new Player (new Posn(this.base1.getX(), this.base1.getY()), Player.playerWidth, Player.playerHeight),
-					new Player(new Posn(this.base2.getX(), this.base2.getY()), Player.playerWidth, Player.playerHeight), 
-					new Flag(new Posn(this.base1.getX(), this.base1.getY()), Flag.flagWidth, Flag.flagHeight),
-					new Flag(new Posn(this.base2.getX(), this.base2.getY()), Flag.flagWidth, Flag.flagHeight),
-					new Base(new Posn(this.base1.getX(), this.base1.getY()), Base.baseWidth, Base.baseHeight, this.base1.getColor()), 
-					new Base(new Posn(this.base2.getX(), this.base2.getY()), Base.baseWidth, Base.baseHeight, this.base2.getColor())); 
+			return getScore();
 		} 
 		else {
 			return this;

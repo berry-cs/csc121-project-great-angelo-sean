@@ -31,12 +31,11 @@ class CaptureAppTest {
 	SetupWorld s1 = new SetupWorld(b1, b2);
 	SetupWorld s2 = new SetupWorld(b2, b1);
 	
-	
+		
 	CaptureWorld w1 = new CaptureWorld(p1, p2, f1, f2, b1, b2);
 	CaptureWorld w2 = new CaptureWorld(p2, p1, f1, f2, b1, b2);
 	CaptureWorld w3 = new CaptureWorld(p1, p2, f1, f2, b2, b1);
 	
-
 	@Test
 	void testPlayerCollide() {
 		assertEquals(true, p1.collided(new Player(new Posn(50, 50), 30, 50, 0)));
@@ -199,13 +198,22 @@ class CaptureAppTest {
 		
 	}
 	*/
+	@Test
+	void testSetScore() {
+		assertEquals(0, w1.winningScore);
+		w1.setScore(2);
+		assertEquals(2, w1.winningScore);
+	}
 	
 	@Test
 	void testSetupKeyPressed() {
-		assertEquals(new CaptureWorld(new Player (b1.pos, 30, 50, new Posn(0, 0), 0),
-				new Player(b2.pos, 30, 50, new Posn(0, 0), 0), new Flag(b1.pos, 20, 30), new Flag(b2.pos, 20, 30), s1.base1, s1.base2)
-				, s1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.ENTER)));
+//		assertEquals(new CaptureWorld(new Player (b1.pos, 30, 50, new Posn(0, 0), 0),
+//				new Player(b2.pos, 30, 50, new Posn(0, 0), 0), new Flag(b1.pos, 20, 30), new Flag(b2.pos, 20, 30), s1.base1, s1.base2)
+//				, s1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.ENTER)));
 		assertEquals(s1, s1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.UP)));
+//		assertEquals(new ScoreWorld(new CaptureWorld(new Player (b1.pos, 30, 50, new Posn(0, 0), 0),
+//				new Player(b2.pos, 30, 50, new Posn(0, 0), 0), new Flag(b1.pos, 20, 30), new Flag(b2.pos, 20, 30), 
+//				s1.base1, s1.base2)), s1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.ENTER)));
 	}
 
 }

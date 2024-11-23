@@ -13,7 +13,7 @@ public class CaptureWorld implements IWorld{
 	Flag flag2;
 	Base base1;
 	Base base2;
-
+	int winningScore;
 
 
 	CaptureWorld(Player player1, Player player2, Flag flag1, Flag flag2, Base base1, Base base2) {
@@ -24,7 +24,6 @@ public class CaptureWorld implements IWorld{
 		this.flag2 = flag2;
 		this.base1 = base1;
 		this.base2 = base2;
-		
 	}
 	
 
@@ -83,7 +82,10 @@ public class CaptureWorld implements IWorld{
 	}
 	
 	
-
+	/** sets the max score */
+	public void setScore(int n) {
+		this.winningScore = n;
+	}
 
 	/** Returns a new world of the updated player location */
 	public IWorld keyPressed(KeyEvent kev) {
@@ -188,6 +190,16 @@ public class CaptureWorld implements IWorld{
 		else {
 			return this;
 		}
+	}
+	
+	/** gets the base1 of the game */
+	public Base getBase1() {
+		return this.base1;
+	}
+	
+	/** gets the base2 of the game */
+	public Base getBase2() {
+		return this.base2;
 	}
 
 	/** Updates the state of the game */ 
