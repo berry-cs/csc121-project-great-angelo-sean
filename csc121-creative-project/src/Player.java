@@ -5,16 +5,16 @@ import processing.core.PApplet;
 
 /** Represents a player in the game */
 public class Player extends AObject{
-	Posn vel; // velocity of player
-	int score;
-	double speed = 4;
+	private Posn vel; // velocity of player
+	private int score;
+	private double speed = 4;
 
 	public static int playerHeight = 50;
 	public static int playerWidth = 30;
 	
-	boolean hasFlag;
-	Posn minBounds = new Posn(this.width/2, (this.height/2));
-	Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
+	private boolean hasFlag;
+	private Posn minBounds = new Posn(this.width/2, (this.height/2));
+	private Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
 
 	public Player(Posn pos, int width, int height, int score) {
 		super(pos, width, height);
@@ -45,10 +45,22 @@ public class Player extends AObject{
 		this.hasFlag = false;
 	}
 	
-	// method to gather score for scoreboard
+	/** method to gather score for scoreboard */
 	public int getScore() {
 		return this.score;
 	}
+	
+	/** gets the posn of the min */
+	public Posn getMinB() {
+		return this.minBounds;
+	}
+	
+	/** gets the posn of the max */
+	public Posn getMaxB() {
+		return this.maxBounds;
+	}
+	
+	
 
 	public Player(Posn pos, int width, int height, Posn vel, int score, boolean hasFlag) {
 		super(pos, width = 30, height = 50);
@@ -64,6 +76,16 @@ public class Player extends AObject{
 		pw.println(Math.round(this.pos.getX()) + " " + Math.round(this.pos.getY()) + " " + this.score + " " + this.hasFlag);
 	}
 	
+	
+	/** gets velocity */
+	public Posn getVel() {
+		return this.vel;
+	}
+	
+	/** returns a boolean with the flag */
+	public boolean getHasFlag() {
+		return this.hasFlag;
+	}
 	
 	/** produces the image of the current player */
 	public PApplet draw(PApplet c) {

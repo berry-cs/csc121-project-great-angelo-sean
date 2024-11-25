@@ -7,13 +7,13 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 public class CaptureWorld implements IWorld{
-	Player player1;
-	Player player2;
-	Flag flag1;
-	Flag flag2;
-	Base base1;
-	Base base2;
-	int winningScore;
+	private Player player1;		// Do we need to make these private?
+	private Player player2;
+	private Flag flag1;
+	private Flag flag2;
+	private Base base1;
+	private Base base2;
+	private int winningScore;
 
 
 	CaptureWorld(Player player1, Player player2, Flag flag1, Flag flag2, Base base1, Base base2) {
@@ -172,11 +172,11 @@ public class CaptureWorld implements IWorld{
 
 		// Handles player collisions
 		if (playerCollision) {
-			if (this.player1.hasFlag && !this.player2.hasFlag) {// if player1 has the flag, and player2 doesn't, player1 can get reset. 
+			if (this.player1.getHasFlag() && !this.player2.getHasFlag()) {// if player1 has the flag, and player2 doesn't, player1 can get reset. 
 				return new CaptureWorld(this.player1.reset(base1).update(flag2), this.player2.update(flag1), 
 						this.flag1.update(player2), this.flag2.update(player1).reset(base2), this.base1, this.base2);
 			}
-			else if (this.player2.getX() <= 600|| !this.player1.hasFlag && this.player2.hasFlag) {				// if they collide in player1's territory, player2 and flag1 gets reset. 
+			else if (this.player2.getX() <= 600|| !this.player1.getHasFlag() && this.player2.getHasFlag()) {				// if they collide in player1's territory, player2 and flag1 gets reset. 
 				return new CaptureWorld(this.player1.update(flag2), this.player2.reset(base2).update(flag1), 
 						this.flag1.update(player2).reset(base1), this.flag2.update(player1), this.base1, this.base2);
 			}
@@ -218,7 +218,33 @@ public class CaptureWorld implements IWorld{
 	public IWorld update() {
 		return this.updateScores().updateCollisions();
 	}
+	
+	/** gets the winning score of the world */
+	public int getWinningScore() {
+		return this.winningScore;
+	}
+	
+	/** gets player 1 */
+	public Player getPlayer1() {
+		return this.player1;
+	}
 
+	/** get player 2 */
+	public Player getPlayer2() {
+		return this.player2;
+	}
+	
+	/** gets flag 1 */
+	public Flag getFlag1() {
+		return this.flag1;
+	}
+
+	/** gets flag 2 */
+	public Flag getFlag2() {
+		return this.flag2;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "CaptureWorld [player1=" + player1 + ", player2=" + player2 + ", flag1=" + flag1 + ", flag2=" + flag2

@@ -4,8 +4,8 @@ import processing.core.PApplet;
 
 
 public class Posn {
-    double x;
-    double y;
+   private double x;
+   private double y;
     
     public Posn(double x, double y) {
         this.x = x;

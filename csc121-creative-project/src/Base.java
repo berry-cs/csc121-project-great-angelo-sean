@@ -6,10 +6,10 @@ import java.io.PrintWriter;
 import processing.core.PApplet;
 
 public class Base extends AObject{
-	Color color;
+	private Color color;
 	
-	Posn minBounds = new Posn(this.width/2, (this.height/2));
-	Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
+	private Posn minBounds = new Posn(this.width/2, (this.height/2));
+	private Posn maxBounds = new Posn(CaptureApp.gameWidth - (this.width / 2), CaptureApp.gameHeight - (this.height/2));
 	
 	public static int baseWidth = 100;
 	public static int baseHeight = 100;
@@ -75,8 +75,8 @@ public class Base extends AObject{
 	/** moves this base towards that posn */
 	public Base move(Posn p, Posn min, Posn max) {
 		
-		int BoundaryX = (int) Math.max(min.x, Math.min(max.x, p.x));
-		int BoundaryY = (int) Math.max(min.y, Math.min(max.y, p.y));
+		int BoundaryX = (int) Math.max(min.getX(), Math.min(max.getX(), p.getX()));
+		int BoundaryY = (int) Math.max(min.getY(), Math.min(max.getY(), p.getY()));	// Broke after changing Posn class fields to private
 		
 		return new Base(new Posn(BoundaryX, BoundaryY), this.width, this.height, this.color); 
 		//return new Base (this.pos.move(p), this.width, this.height, this.color);

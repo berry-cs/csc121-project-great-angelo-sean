@@ -5,8 +5,8 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 public class SetupWorld implements IWorld{
-	Base base1;
-	Base base2;
+	private Base base1;
+	private Base base2;
 
 	SetupWorld(Base base1, Base base2){
 		this.base1 = base1;
