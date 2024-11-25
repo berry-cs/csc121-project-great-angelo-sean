@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
 //import processing.core.PApplet;
 import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
 //import processing.core.PApplet;
 //import processing.event.KeyEvent;
@@ -31,10 +32,12 @@ class CaptureAppTest {
 	SetupWorld s1 = new SetupWorld(b1, b2);
 	SetupWorld s2 = new SetupWorld(b2, b1);
 
-
-	CaptureWorld w1 = new CaptureWorld(p1, p2, f1, f2, b1, b2);
-	CaptureWorld w2 = new CaptureWorld(p2, p1, f1, f2, b1, b2);
-	CaptureWorld w3 = new CaptureWorld(p1, p2, f1, f2, b2, b1);
+	CaptureWorld w1 = new CaptureWorld(p1, p2, f1, f2, b1, b2, 5);
+	CaptureWorld w2 = new CaptureWorld(p2, p1, f1, f2, b1, b2, 1);
+	CaptureWorld w3 = new CaptureWorld(p1, p2, f1, f2, b2, b1, 3);
+	CaptureWorld w4 = new CaptureWorld(p1, p2, f1, f2, b1, b2, 1);
+	
+	EndScreen es1 = new EndScreen(w4.getPlayer1(), w4.getPlayer2());
 
 	@Test
 	void testPlayerCollide() {
@@ -76,7 +79,7 @@ class CaptureAppTest {
 	void testKeyPressed() {
 		assertEquals(new CaptureWorld(
 				new Player(new Posn(50, 50), 30, 50, new Posn(0, -4), 0),
-				w1.getPlayer2(), w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2()), 
+				w1.getPlayer2(), w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2(), 5), 
 				w1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, 'w', 'w')));
 	}
 
@@ -129,7 +132,7 @@ class CaptureAppTest {
 	void testUpdateCollisions() {
 		assertEquals(new CaptureWorld(w1.getPlayer1().update(w1.getFlag2()), 
 				new Player(posn2.move(p2.getVel()).bound(p2.getMinB(), p2.getMaxB()), 30, 50, p2.getVel(), p2.getScore(), p2.getHasFlag()), 
-				w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2()), 
+				w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2(), 5), 
 				w1.updateCollisions());
 	}
 
@@ -144,7 +147,7 @@ class CaptureAppTest {
 		assertEquals(w1, w1.updateScores()); // flags don't go to rival's base so nothing happens
 		assertEquals(new CaptureWorld
 				(new Player(p1.pos, 30, 50, 1), p2, w3.getFlag1(),
-						new Flag(new Posn(100, 100), 20, 30), b2, b1), w3.updateScores());
+						new Flag(new Posn(100, 100), 20, 30), b2, b1, 3), w3.updateScores());
 	}
 
 	@Test
@@ -159,19 +162,19 @@ class CaptureAppTest {
 	void testCaptureWorldUpdate() {
 		assertEquals(new CaptureWorld(w1.getPlayer1().update(w1.getFlag2()), 
 				new Player(posn2.move(p2.getVel()).bound(p2.getMinB(), p2.getMaxB()), 30, 50, p2.getVel(), p2.getScore(), p2.getHasFlag()), 
-				w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2()), 
+				w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2(), 5), 
 				w1.update());
 
 		assertEquals(new CaptureWorld				// the score and the collisions are updated
 				(new Player(p1.pos, 30, 50, 1), new Player(new Posn(15, 25), 30, 50, 1), w3.getFlag1(),
-						new Flag(new Posn(100, 100), 20, 30), b2, b1), w3.update());
+						new Flag(new Posn(100, 100), 20, 30), b2, b1, 3), w3.update());
 	}
 
 	@Test
 	void testKeyReleased() {
 		assertEquals(new CaptureWorld(
 				new Player(new Posn(50, 50), 30, 50, new Posn(0, 4), 0),
-				w1.getPlayer2(), w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2()), 
+				w1.getPlayer2(), w1.getFlag1(), w1.getFlag2(), w1.getBase1(), w1.getBase2(), 5), 
 				w1.keyReleased(new KeyEvent(null, 0, KeyEvent.RELEASE, 0, 'w', 'w')));
 	}
 
@@ -212,20 +215,6 @@ class CaptureAppTest {
 		assertEquals(new Posn(1185, 675), p2.getMaxB());
 	}
 
-
-	/*
-	@Test
-	void testMouseDragged() {
-
-	}
-	 */
-	@Test
-	void testSetScore() {
-		assertEquals(0, w1.getWinningScore());
-		w1.setScore(2);
-		assertEquals(2, w1.getWinningScore());
-	}
-
 	@Test
 	void testSetupKeyPressed() {
 		//		assertEquals(new CaptureWorld(new Player (b1.pos, 30, 50, new Posn(0, 0), 0),
@@ -235,6 +224,25 @@ class CaptureAppTest {
 		//		assertEquals(new ScoreWorld(new CaptureWorld(new Player (b1.pos, 30, 50, new Posn(0, 0), 0),
 		//				new Player(b2.pos, 30, 50, new Posn(0, 0), 0), new Flag(b1.pos, 20, 30), new Flag(b2.pos, 20, 30), 
 		//				s1.base1, s1.base2)), s1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.ENTER)));
+	}
+	
+	@Test
+	void testCheckWinner() {
+		assertEquals(w1, w1.checkWinner());
+		assertEquals(es1, w4.checkWinner());
+	}
+	
+	@Test
+	void testMouseDragged() {
+		assertEquals(s1, s1.mouseDragged(new MouseEvent(null, 1, 0, 0, CaptureApp.gameWidth/2, CaptureApp.gameHeight/2, 0, 1)));	// nothing happens
+	}
+	
+	@Test
+	void testEndScreenKeyPressed() {
+		assertEquals(es1, es1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.UP)));
+		assertEquals(new SetupWorld(new Base(CaptureApp.startingBase1, Base.baseWidth, Base.baseHeight, new Color(0, 255, 255)),
+									new Base(CaptureApp.startingBase2, Base.baseWidth, Base.baseHeight, new Color(0, 255, 255))), 
+				es1.keyPressed(new KeyEvent(null, 0, KeyEvent.PRESS, 0, '\0', PApplet.ENTER)));
 	}
 
 }

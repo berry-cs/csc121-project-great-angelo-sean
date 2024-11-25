@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 import processing.core.*;
 import processing.event.KeyEvent;
-import processing.event.MouseEvent;
 
 public class CaptureWorld implements IWorld{
-	private Player player1;		// Do we need to make these private?
+	private Player player1;
 	private Player player2;
 	private Flag flag1;
 	private Flag flag2;
@@ -16,7 +15,7 @@ public class CaptureWorld implements IWorld{
 	private int winningScore;
 
 
-	CaptureWorld(Player player1, Player player2, Flag flag1, Flag flag2, Base base1, Base base2) {
+	CaptureWorld(Player player1, Player player2, Flag flag1, Flag flag2, Base base1, Base base2, int winningScore) {
 		super();
 		this.player1 = player1;
 		this.player2 = player2;
@@ -24,6 +23,7 @@ public class CaptureWorld implements IWorld{
 		this.flag2 = flag2;
 		this.base1 = base1;
 		this.base2 = base2;
+		this.winningScore = winningScore;
 	}
 
 
@@ -52,12 +52,18 @@ public class CaptureWorld implements IWorld{
 
 		
 		// Draw the scores of each player on the screen
-				c.fill(255, 0, 0);
-				c.text("Player 1 Score: " + player1.getScore(), c.width / 3, 60);
-				c.fill(0, 0, 255);
-				c.text("Player 2 Score: " + (player2.getScore()), (3 * c.width) / 5, 60);
+		c.fill(255, 0, 0);
+		c.textFont(c.createFont("RioGrande.ttf", 50));
+		c.fill(221, 179, 107);
+		c.rect(CaptureApp.gameWidth/2, 43, 100, 45);
+		c.fill(130, 24, 24);
+		c.text("" + player1.getScore(), CaptureApp.gameWidth/2 - 25, 60);
+		c.text("-", CaptureApp.gameWidth/2, 60);
+		c.text("" + (player2.getScore()), CaptureApp.gameWidth/2 + 25, 60);
+		c.textSize(20);
+		c.fill(0, 0, 0);
+		c.text("Winning Score - " + this.winningScore, CaptureApp.gameWidth/2, 90);
 
-				
 		return c;
 	}
 
@@ -71,6 +77,7 @@ public class CaptureWorld implements IWorld{
 			this.flag2.writeToFile(pw);
 			this.base1.writeToFile(pw);
 			this.base2.writeToFile(pw);
+			pw.println(this.winningScore);
 			pw.close();
 		} catch (IOException exp) {
 			System.out.println("Problem saving the game: " + exp.getMessage());
@@ -83,7 +90,7 @@ public class CaptureWorld implements IWorld{
 			Scanner sc = new Scanner(new File("saved_game.txt"));
 
 			while (sc.hasNextInt()) {
-				return new CaptureWorld(new Player(sc), new Player(sc), new Flag(sc), new Flag(sc), new Base(sc), new Base(sc));
+				return new CaptureWorld(new Player(sc), new Player(sc), new Flag(sc), new Flag(sc), new Base(sc), new Base(sc), sc.nextInt());
 			}
 
 			sc.close();
@@ -94,42 +101,39 @@ public class CaptureWorld implements IWorld{
 	}
 
 
-	/** sets the max score */
-	public void setScore(int n) {
-		this.winningScore = n;
-	}
-
 	/** Returns a new world of the updated player location */
 	public IWorld keyPressed(KeyEvent kev) {
-		if (kev.getKeyCode() == PApplet.UP) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -4)), this.flag1, this.flag2, this.base1, this.base2);
+		switch(kev.getKeyCode()) {
+		case PApplet.UP:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -4)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
+			
+		case PApplet.DOWN:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 4)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
+			
+		case PApplet.LEFT:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(-4, 0)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
+			
+		case PApplet.RIGHT:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(4, 0)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
-		else if (kev.getKeyCode() == PApplet.DOWN ) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 4)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.LEFT) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(-4, 0)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.RIGHT) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(4, 0)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKey() == 'w') {
-			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		
+		if (kev.getKey() == 'w') {
+			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else if (kev.getKey() == 'a') {
-			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else if (kev.getKey() == 's') {
-			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else if (kev.getKey() == 'd') {
-			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else if (kev.getKey() == 'S') {
 			this.saveGame();
 			return this;
 		}
-		else if (kev.getKey() == 'l') {
+		else if (kev.getKey() == 'L') {
 			return this.loadGame();
 		}
 		else {
@@ -138,66 +142,78 @@ public class CaptureWorld implements IWorld{
 	}
 	/** Undoes the keyPressed method */
 	public IWorld keyReleased (KeyEvent kev) {
-		if (kev.getKeyCode() == PApplet.UP) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 4)), this.flag1, this.flag2, this.base1, this.base2);
+		switch(kev.getKeyCode()) {
+		case PApplet.UP:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, 4)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
+			
+		case PApplet.DOWN:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -4)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
+			
+		case PApplet.LEFT:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(4, 0)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
+			
+		case PApplet.RIGHT:
+			return new CaptureWorld(this.player1, this.player2.move(new Posn(-4, 0)), this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
-		else if (kev.getKeyCode() == PApplet.DOWN ) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(0, -4)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.LEFT) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(4, 0)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKeyCode() == PApplet.RIGHT) {
-			return new CaptureWorld(this.player1, this.player2.move(new Posn(-4, 0)), this.flag1, this.flag2, this.base1, this.base2);
-		}
-		else if (kev.getKey() == 'w') {
-			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+		
+		if (kev.getKey() == 'w') {
+			return new CaptureWorld(this.player1.move(new Posn(0, 4)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else if (kev.getKey() == 'a') {
-			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1.move(new Posn(4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else if (kev.getKey() == 's') {
-			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1.move(new Posn(0, -4)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else if (kev.getKey() == 'd') {
-			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1.move(new Posn(-4, 0)), this.player2, this.flag1, this.flag2, this.base1, this.base2, this.winningScore);
 		}
 		else {
 			return this;
 		}
 	}
 
-	public IWorld updateCollisions() {
+	public CaptureWorld updateCollisions() {
 		boolean playerCollision = this.player1.collided(this.player2);
 
 		// Handles player collisions
 		if (playerCollision) {
 			if (this.player1.getHasFlag() && !this.player2.getHasFlag()) {// if player1 has the flag, and player2 doesn't, player1 can get reset. 
 				return new CaptureWorld(this.player1.reset(base1).update(flag2), this.player2.update(flag1), 
-						this.flag1.update(player2), this.flag2.update(player1).reset(base2), this.base1, this.base2);
+						this.flag1.update(player2), this.flag2.update(player1).reset(base2), this.base1, this.base2, this.winningScore);
 			}
 			else if (this.player2.getX() <= 600|| !this.player1.getHasFlag() && this.player2.getHasFlag()) {				// if they collide in player1's territory, player2 and flag1 gets reset. 
 				return new CaptureWorld(this.player1.update(flag2), this.player2.reset(base2).update(flag1), 
-						this.flag1.update(player2).reset(base1), this.flag2.update(player1), this.base1, this.base2);
+						this.flag1.update(player2).reset(base1), this.flag2.update(player1), this.base1, this.base2, this.winningScore);
 			}
 			else {											// if they collide in player2's territory, player1 and flag2 gets reset.
 				return new CaptureWorld(this.player1.reset(base1).update(flag2), this.player2.update(flag1), 
-						this.flag1.update(player2), this.flag2.update(player1).reset(base2), this.base1, this.base2);
+						this.flag1.update(player2), this.flag2.update(player1).reset(base2), this.base1, this.base2, this.winningScore);
 			}
 		}
 		else {
 			return new CaptureWorld(this.player1.update(flag2), this.player2.update(flag1), 
-					this.flag1.update(player2), this.flag2.update(player1), this.base1, this.base2);
+					this.flag1.update(player2), this.flag2.update(player1), this.base1, this.base2, this.winningScore);
 		}
 	}
 
 	// updates the scores of each player
 	public CaptureWorld updateScores() {
 		if (this.base1.collided(flag2)) {
-			return new CaptureWorld(this.player1.addScore(), this.player2, this.flag1, this.flag2.reset(base2), this.base1, this.base2);
+			return new CaptureWorld(this.player1.addScore(), this.player2, this.flag1, this.flag2.reset(base2), this.base1, this.base2, this.winningScore);
 		}
 		else if (this.base2.collided(flag1)) {
-			return new CaptureWorld(this.player1, this.player2.addScore(), this.flag1.reset(base1), this.flag2, this.base1, this.base2);
+			return new CaptureWorld(this.player1, this.player2.addScore(), this.flag1.reset(base1), this.flag2, this.base1, this.base2, this.winningScore);
+		}
+		else {
+			return this;
+		}
+	}
+	
+	/** checks if there is a winning player */
+	public IWorld checkWinner() {
+		if ((this.player1.getScore() >= this.winningScore) || (this.player2.getScore() >= this.winningScore)) {
+			return new EndScreen(this.player1, this.player2);
 		}
 		else {
 			return this;
@@ -216,8 +232,9 @@ public class CaptureWorld implements IWorld{
 
 	/** Updates the state of the game */ 
 	public IWorld update() {
-		return this.updateScores().updateCollisions();
+		return this.updateScores().updateCollisions().checkWinner();
 	}
+	
 	
 	/** gets the winning score of the world */
 	public int getWinningScore() {
