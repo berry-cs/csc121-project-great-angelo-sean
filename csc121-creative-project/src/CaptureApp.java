@@ -5,7 +5,7 @@ import java.awt.Color;
 /**
  * Provides the scaffolding to launch a Processing application
  */
-public class CaptureApp extends PApplet {	// <----- 1. rename AppTemplate everywhere in this file
+ class CaptureApp extends PApplet {	// <----- 1. rename AppTemplate everywhere in this file
     IWorld w;
     public static int gameWidth = 1200;
     public static int gameHeight = 700;

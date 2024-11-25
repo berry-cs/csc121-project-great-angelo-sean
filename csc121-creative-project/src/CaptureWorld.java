@@ -25,7 +25,7 @@ public class CaptureWorld implements IWorld{
 		this.base1 = base1;
 		this.base2 = base2;
 	}
-	
+
 
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
@@ -39,16 +39,28 @@ public class CaptureWorld implements IWorld{
 		this.player2.draw(c);
 		this.flag1.draw(c);
 		this.flag2.draw(c);
+
+		// adding images for each object
+		c.imageMode(c.CENTER);
+		c.image(c.loadImage("BackgroundAlpha.png"), CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
+		c.image(c.loadImage("base1.png"), (float)this.base1.getX(), (float)this.base1.getY());
+		c.image(c.loadImage("base2.png"), (float)this.base2.getX(), (float)this.base2.getY());
+		c.image(c.loadImage("player1.png"), (float) this.player1.getX(), (float) this.player1.getY());
+		c.image(c.loadImage("player2.png"), (float) this.player2.getX(), (float) this.player2.getY());
+		c.image(c.loadImage("flag1.png"), (float) this.flag1.getX(), (float) this.flag1.getY());
+		c.image(c.loadImage("flag2.png"), (float) this.flag2.getX(), (float) this.flag2.getY());
+
 		
 		// Draw the scores of each player on the screen
-		c.fill(255, 0, 0);
-		c.text("Player 1 Score: " + player1.getScore(), c.width / 3, 60);
-		c.fill(0, 0, 255);
-		c.text("Player 2 Score: " + (player2.getScore()), (3 * c.width) / 5, 60);
-		
+				c.fill(255, 0, 0);
+				c.text("Player 1 Score: " + player1.getScore(), c.width / 3, 60);
+				c.fill(0, 0, 255);
+				c.text("Player 2 Score: " + (player2.getScore()), (3 * c.width) / 5, 60);
+
+				
 		return c;
 	}
-	
+
 	/** saves the current state of the game */
 	public void saveGame() {
 		try {
@@ -69,19 +81,19 @@ public class CaptureWorld implements IWorld{
 	public CaptureWorld loadGame() {
 		try {
 			Scanner sc = new Scanner(new File("saved_game.txt"));
-			
+
 			while (sc.hasNextInt()) {
 				return new CaptureWorld(new Player(sc), new Player(sc), new Flag(sc), new Flag(sc), new Base(sc), new Base(sc));
 			}
-			
+
 			sc.close();
 		} catch (IOException exp) {
 			System.out.println("Problem loading game: " + exp.getMessage());
 		}
 		return this;
 	}
-	
-	
+
+
 	/** sets the max score */
 	public void setScore(int n) {
 		this.winningScore = n;
@@ -178,7 +190,7 @@ public class CaptureWorld implements IWorld{
 					this.flag1.update(player2), this.flag2.update(player1), this.base1, this.base2);
 		}
 	}
-	
+
 	// updates the scores of each player
 	public CaptureWorld updateScores() {
 		if (this.base1.collided(flag2)) {
@@ -191,12 +203,12 @@ public class CaptureWorld implements IWorld{
 			return this;
 		}
 	}
-	
+
 	/** gets the base1 of the game */
 	public Base getBase1() {
 		return this.base1;
 	}
-	
+
 	/** gets the base2 of the game */
 	public Base getBase2() {
 		return this.base2;
