@@ -15,18 +15,20 @@ public class SetupWorld implements IWorld{
 
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
-		c.background(45);
+		c.imageMode(c.CENTER);
+		c.image(c.loadImage("BackgroundAlpha.png"), CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
 		c.textSize(32);
 		c.textAlign(c.CENTER);
 		c.fill(255);
-		this.base1.draw(c);
-		this.base2.draw(c);
+		c.image(c.loadImage("base1.png"), (float)this.base1.getX(), (float)this.base1.getY());
+		c.image(c.loadImage("base2.png"), (float)this.base2.getX(), (float)this.base2.getY());
+		//this.base2.draw(c);
 		
 		// draws starting game instructions
 		c.fill(255, 255, 0);
 		c.text("Place your bases", CaptureApp.gameWidth/2, 100);
 		c.text("Press Enter continue", CaptureApp.gameWidth / 2 , 200);
-		
+				
 		return c;
 	}
 
