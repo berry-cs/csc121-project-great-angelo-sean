@@ -15,16 +15,15 @@ public class EndScreen implements IWorld {
 	/** produces the image of the current game */
 	public PApplet draw(PApplet c) {
 		c.imageMode(c.CENTER);
-		c.image(c.loadImage("BackgroundAlpha.png"), CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
 		c.textSize(32);
-		c.textAlign(c.CENTER); 
+		c.textAlign(c.CENTER);
 		if (this.player1.getScore() > this.player2.getScore()) {
-			c.text("Player 1 Wins!", CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
+			c.image(c.loadImage("p1wins.png"), CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
 		} else {
-			c.text("Player 2 Wins!", CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
+			c.image(c.loadImage("p2wins.png"), CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
 		}
-		c.text("Press ENTER to restart", CaptureApp.gameWidth/2, CaptureApp.gameHeight/2 + 100);
-		c.fill(255);
+		c.fill(147, 32, 33);
+		c.text("Press ENTER to restart", CaptureApp.gameWidth/2+100, CaptureApp.gameHeight/2 + 100);
 		return c;
 	}
 	
