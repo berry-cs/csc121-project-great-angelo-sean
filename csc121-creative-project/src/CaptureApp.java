@@ -19,6 +19,7 @@ import java.awt.Color;
     public void setup() {
     	w = new SetupWorld(new Base(startingBase1, 100, 100, new Color(255,0,0)),
     					   new Base(startingBase2, 100, 100, new Color(0,0,255)));
+    	
     }
     
     public void draw() {
