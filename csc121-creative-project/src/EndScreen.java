@@ -17,7 +17,7 @@ public class EndScreen implements IWorld {
 		c.imageMode(c.CENTER);
 		c.image(c.loadImage("BackgroundAlpha.png"), CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
 		c.textSize(32);
-		c.textAlign(c.CENTER);
+		c.textAlign(c.CENTER); 
 		if (this.player1.getScore() > this.player2.getScore()) {
 			c.text("Player 1 Wins!", CaptureApp.gameWidth/2, CaptureApp.gameHeight/2);
 		} else {
